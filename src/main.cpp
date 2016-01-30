@@ -8,6 +8,7 @@
 #include "graphics.hpp"
 
 void cleanup() {
+    Demo::destroySingleton();
     #ifdef RASPI_BUILD
         bcm_host_deinit();
     #else
@@ -21,15 +22,15 @@ int main(int argc, char* argv[]) {
     #endif
     const Config conf(argc, argv);
     Window window(conf);
+    Demo::createSingleton(window);
     atexit(cleanup);
-    Demo demo(window);
 
     float frames=0;
     float tLast=0;
     const float TIME=5.0f;
 
-    while(demo.isRunning()) {
-        demo.draw();
+    while(Demo::singleton().isRunning()) {
+        Demo::singleton().draw();
         
         frames+=1;
         if (tLast+TIME < window.getTime()) {

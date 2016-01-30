@@ -4,16 +4,26 @@
 #include "program.hpp"
 #include "mvp.hpp"
 #include "framebuffer.hpp"
+#include <iostream>
+#include <vector>
+#include "demo_drawable.hpp"
 
 class Demo: public Application {
-    public:
+    private:
         Demo(Window& _window);
+        
+    public:
         void draw();
         
+        static void createSingleton(Window& _window);
+        static void destroySingleton();
+        static Demo& singleton();
+        
+        Window& getWindow();
+        
+        static Demo* instance;
+        
     protected:
-        Program* shaderProgram;
-        Program* ppProgram;
-        mat4 projection;
-        MVP* mvp;
-        Framebuffer ppBuf;
+        std::vector<DemoDrawable> parts;
+        unsigned int currentPart;
 };
