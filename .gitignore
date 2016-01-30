@@ -3,6 +3,9 @@
 demo
 *.a
 
+# Data
+
+data/
 
 # Build intermediate files
 
