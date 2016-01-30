@@ -1,6 +1,6 @@
 # A makefile.
 
-SRCS=main.cpp
+SRCS=main.cpp demo.cpp
 TARGET=demo
 OBJS=$(SRCS:.cpp=.o)
 CFLAGS=-O2 -MMD -MP

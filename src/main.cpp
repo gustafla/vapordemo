@@ -1,7 +1,7 @@
 #include <iostream>
 #include "window.hpp"
 #include "config.hpp"
-#include "application.hpp"
+#include "demo.hpp"
 #include "vectors.hpp"
 #include <vector>
 #include <cstdlib>
@@ -22,14 +22,14 @@ int main(int argc, char* argv[]) {
     const Config conf(argc, argv);
     Window window(conf);
     atexit(cleanup);
-    Application testApp(window);
+    Demo demo(window);
 
     float frames=0;
     float tLast=0;
     const float TIME=5.0f;
 
-    while(testApp.isRunning()) {
-        testApp.draw();
+    while(demo.isRunning()) {
+        demo.draw();
         
         frames+=1;
         if (tLast+TIME < window.getTime()) {
