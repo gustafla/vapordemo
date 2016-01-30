@@ -1,0 +1,24 @@
+# Binaries
+
+demo
+*.a
+
+
+# Build intermediate files
+
+*.o
+*.d
+
+
+# Logs
+
+log*
+
+
+#big files
+
+*.wav
+
+#library
+
+src/lib3dapp
