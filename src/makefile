@@ -26,14 +26,14 @@ raspi: $(TARGET)
 	@echo "Finished."
 
 $(TARGET): $(OBJS)
-	cd lib3dapp; make $(MAKECMDGOALS)
+	cd lib3dapp; $(MAKE) $(MAKECMDGOALS)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) $(LFLAGS) $(LIBS) $(LIBS_CUSTOM)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	
 clean:
-	cd lib3dapp; make clean
+	cd lib3dapp; $(MAKE) clean
 	find ./ -type f -name "*.o" -delete
 	find ./ -type f -name "*.d" -delete
 	rm -f $(TARGET)

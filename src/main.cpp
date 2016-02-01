@@ -7,23 +7,13 @@
 #include <cstdlib>
 #include "graphics.hpp"
 
-void cleanup() {
-    Demo::destroySingleton();
-    #ifdef RASPI_BUILD
-        bcm_host_deinit();
-    #else
-        SDL_Quit();
-    #endif
-}
-
 int main(int argc, char* argv[]) {
-    #ifdef RASPI_BUILD
-        bcm_host_init();
-    #endif
+    initializeGraphics();
+    
     const Config conf(argc, argv);
-    Window window(conf);
+    Window window(conf, "Revision demo test");
     Demo::createSingleton(window);
-    atexit(cleanup);
+    atexit(cleanupGraphics);
 
     float frames=0;
     float tLast=0;
