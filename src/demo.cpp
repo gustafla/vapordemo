@@ -15,15 +15,21 @@ Application(_window) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     check();
     
-    parts.push_back(PartPascalTriangles());
+    parts.push_back(new PartPascalTriangles());
+}
+
+Demo::~Demo() {
+    for (unsigned int i=0; i<parts.size(); i++) {
+        delete parts[i];
+    }
 }
 
 void Demo::draw() {
     window.bindFramebuffer();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    parts[currentPart].draw();
-        
+    parts[currentPart]->draw();
+    
     window.swapBuffers();
     check();
 }

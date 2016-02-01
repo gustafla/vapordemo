@@ -11,9 +11,10 @@
 class Demo: public Application {
     private:
         Demo(Window& _window);
+        ~Demo();
         
     public:
-        void draw();
+        virtual void draw();
         
         static void createSingleton(Window& _window);
         static void destroySingleton();
@@ -24,6 +25,6 @@ class Demo: public Application {
         static Demo* instance;
         
     protected:
-        std::vector<DemoDrawable> parts;
+        std::vector<DemoDrawable*> parts;
         unsigned int currentPart;
 };

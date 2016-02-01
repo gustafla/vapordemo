@@ -1,10 +1,12 @@
 #pragma once
 
 #include "demo.hpp"
+#include "program.hpp"
 
 class PartPascalTriangles: public DemoDrawable {
     public:
         PartPascalTriangles();
-        void draw();
+        virtual void draw();
     private:
+        Program shader;
 };
