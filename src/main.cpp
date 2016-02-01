@@ -7,13 +7,18 @@
 #include <cstdlib>
 #include "graphics.hpp"
 
+void cleanup() {
+    Demo::destroySingleton();
+    cleanupGraphics();
+}
+
 int main(int argc, char* argv[]) {
     initializeGraphics();
     
     const Config conf(argc, argv);
     Window window(conf, "Revision demo test");
     Demo::createSingleton(window);
-    atexit(cleanupGraphics);
+    atexit(cleanup);
 
     float frames=0;
     float tLast=0;
