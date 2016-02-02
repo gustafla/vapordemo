@@ -2,12 +2,31 @@
 #include "graphics.hpp"
 #include <iostream>
 #include "part_pascal_triangles.hpp"
+#include "paths.hpp"
+#include "shader.hpp"
+#include "geo_primitives.hpp"
+#include <string>
+#include <stdio.h>
+
+void setTextureUniforms(Program& shader, unsigned int n) {
+    shader.use();
+    char buf[16];
+    for(GLuint i=0; i<n; i++) {
+        sprintf(buf, "texture%d", i);
+        glUniform1i(shader.getUfmHandle(std::string(buf)), i);
+    }
+}
 
 Demo* Demo::instance;
 
 Demo::Demo(Window& _window):
+Application(_window),
+internalRes(DEMO_W, DEMO_H),
 currentPart(0),
-Application(_window) {
+shaderPostAnalog(shaderPath("simple.vert"), shaderPath("analog.frag")),
+shaderSimple(shaderPath("simple.vert"), shaderPath("generic.frag")),
+fboPostAnalog(DEMO_W, DEMO_H),
+fboMain(DEMO_W, DEMO_H) {
     //glEnable(GL_CULL_FACE);
     //glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -16,6 +35,9 @@ Application(_window) {
     check();
     
     parts.push_back(new PartPascalTriangles());
+    
+    setTextureUniforms(shaderPostAnalog);
+    setTextureUniforms(shaderSimple);
 }
 
 Demo::~Demo() {
@@ -25,10 +47,25 @@ Demo::~Demo() {
 }
 
 void Demo::draw() {
-    window.bindFramebuffer();
+    fboPostAnalog.bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     parts[currentPart]->draw();
+    
+    //Postproc to scaling buffer
+    fboMain.bind();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    shaderPostAnalog.use();
+    glUniform1f(shaderPostAnalog.getUfmHandle("time"), window.getTime());
+    fboPostAnalog.getTexture().bindToUnit(0);
+    GeoPrimitives::singleton().quad.draw(shaderPostAnalog);
+    
+    //Scaling buffer to window
+    window.bindFramebuffer();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    shaderSimple.use();
+    fboMain.getTexture().bindToUnit(0);
+    GeoPrimitives::singleton().quad.draw(shaderSimple);
     
     window.swapBuffers();
     check();

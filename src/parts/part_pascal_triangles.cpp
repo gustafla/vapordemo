@@ -2,16 +2,19 @@
 #include "shader.hpp"
 #include "geo_primitives.hpp"
 #include "paths.hpp"
+#include "tga_file.hpp"
 #include <iostream>
 
 PartPascalTriangles::PartPascalTriangles():
-shader(Shader(shaderPath("simple.vert")), Shader(shaderPath("generic.frag"))) {
+shader(Shader(shaderPath("simple.vert")), Shader(shaderPath("generic.frag"))),
+testImage(loadTGAFile(texturePath("vapor.tga"))) {
     shader.use();
-    glUniform1i(shader.getUfmHandle("iChannel0"), 0);
-    glUniform4f(shader.getUfmHandle("color"), 1, 0, 0, 1);
+    setTextureUniforms(shader);
+    glUniform4f(shader.getUfmHandle("color"), 1, 0, 0, 0.0f);
 }
 
 void PartPascalTriangles::draw() {
     shader.use();
-    GeoPrimitives::singleton().triangleEquilateral.draw(shader);
+    testImage.bindToUnit(0);
+    GeoPrimitives::singleton().quad.draw(shader);
 }

@@ -2,11 +2,16 @@
 
 #include "application.hpp"
 #include "program.hpp"
-#include "mvp.hpp"
 #include "framebuffer.hpp"
+#include "vectors.hpp"
 #include <iostream>
 #include <vector>
 #include "demo_drawable.hpp"
+
+#define DEMO_W 430
+#define DEMO_H 240
+
+void setTextureUniforms(Program& shader, unsigned int n=4);
 
 class Demo: public Application {
     private:
@@ -27,4 +32,12 @@ class Demo: public Application {
     protected:
         std::vector<DemoDrawable*> parts;
         unsigned int currentPart;
+        
+        Program shaderPostAnalog;
+        Program shaderSimple;
+        //Texture texturePostAnalogNoise;
+        Framebuffer fboPostAnalog;
+        Framebuffer fboMain;
+        
+        vec2 internalRes;
 };

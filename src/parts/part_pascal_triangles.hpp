@@ -2,6 +2,7 @@
 
 #include "demo.hpp"
 #include "program.hpp"
+#include "texture.hpp"
 
 class PartPascalTriangles: public DemoDrawable {
     public:
@@ -9,4 +10,5 @@ class PartPascalTriangles: public DemoDrawable {
         virtual void draw();
     private:
         Program shader;
+        Texture testImage;
 };
