@@ -7,8 +7,9 @@
 #include <iostream>
 #include <vector>
 #include "demo_drawable.hpp"
+#include "scaling_rectangle.hpp"
 
-#define DEMO_W 430
+#define DEMO_W 320
 #define DEMO_H 240
 
 void setTextureUniforms(Program& shader, unsigned int n=4);
@@ -40,4 +41,5 @@ class Demo: public Application {
         Framebuffer fboMain;
         
         vec2 internalRes;
+        ScalingRectangle rect;
 };

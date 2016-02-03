@@ -5,6 +5,7 @@
 #include "paths.hpp"
 #include "shader.hpp"
 #include "geo_primitives.hpp"
+#include "vectors.hpp"
 #include <string>
 #include <stdio.h>
 
@@ -21,6 +22,7 @@ Demo* Demo::instance;
 
 Demo::Demo(Window& _window):
 Application(_window),
+rect(vec2(DEMO_W, DEMO_H), vec2(_window.getWidth(), _window.getHeight())),
 internalRes(DEMO_W, DEMO_H),
 currentPart(0),
 shaderPostAnalog(shaderPath("simple.vert"), shaderPath("analog.frag")),
@@ -65,7 +67,7 @@ void Demo::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderSimple.use();
     fboMain.getTexture().bindToUnit(0);
-    GeoPrimitives::singleton().quad.draw(shaderSimple);
+    rect.draw(shaderSimple);
     
     window.swapBuffers();
     check();
