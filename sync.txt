@@ -1,0 +1,9 @@
+# 0: Part channel
+t p
+s 0 0
+
+# 1: Brightness channel
+t p
+s 0 -1
+s 5 0
+s 10 1

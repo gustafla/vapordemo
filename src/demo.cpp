@@ -7,7 +7,7 @@
 #include "geo_primitives.hpp"
 #include "vectors.hpp"
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 
 void setTextureUniforms(Program& shader, unsigned int n) {
     shader.use();
@@ -24,10 +24,13 @@ Demo::Demo(Window& _window):
 Application(_window),
 rect(vec2(DEMO_W, DEMO_H), vec2(_window.getWidth(), _window.getHeight())),
 internalRes(DEMO_W, DEMO_H),
-currentPart(0),
+internalAspectRatio(DEMO_W/DEMO_H),
+sync("sync.txt"),
 shaderPostAnalog(shaderPath("simple.vert"), shaderPath("analog.frag")),
+shaderPostBlur(shaderPath("simple.vert"), shaderPath("fastblur.frag")),
 shaderSimple(shaderPath("simple.vert"), shaderPath("generic.frag")),
 fboPostAnalog(DEMO_W, DEMO_H),
+fboPostBlur(DEMO_W, DEMO_H),
 fboMain(DEMO_W, DEMO_H) {
     //glEnable(GL_CULL_FACE);
     //glEnable(GL_DEPTH_TEST);
@@ -36,10 +39,13 @@ fboMain(DEMO_W, DEMO_H) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     check();
     
-    parts.push_back(new PartPascalTriangles());
-    
     setTextureUniforms(shaderPostAnalog);
     setTextureUniforms(shaderSimple);
+    setTextureUniforms(shaderPostBlur);
+    shaderPostBlur.use();
+    glUniform2f(shaderPostBlur.getUfmHandle("resolution"), internalRes.x, internalRes.y);
+    
+    parts.push_back(new PartPascalTriangles());
 }
 
 Demo::~Demo() {
@@ -52,19 +58,29 @@ void Demo::draw() {
     fboPostAnalog.bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    parts[currentPart]->draw();
+    parts[(unsigned int)(sync.getValue(SYNC_PART, window.getTime())+0.5f)]->draw();
     
-    //Postproc to scaling buffer
+    //Blur to Analog
+    fboPostBlur.bind();
+    glClear(GL_DEPTH_BUFFER_BIT);
+    shaderPostBlur.use();
+    fboPostAnalog.getTexture().bindToUnit(0);
+    GeoPrimitives::singleton().quad.draw(shaderPostBlur);
+    
+    //Analog postproc to scaling buffer
     fboMain.bind();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
     shaderPostAnalog.use();
     glUniform1f(shaderPostAnalog.getUfmHandle("time"), window.getTime());
+    glUniform1f(shaderPostAnalog.getUfmHandle("brightness"), sync.getValue(SYNC_BRIGHTNESS, window.getTime()));
+    std::cout << sync.getValue(SYNC_BRIGHTNESS, window.getTime()) << std::endl;
     fboPostAnalog.getTexture().bindToUnit(0);
+    fboPostBlur.getTexture().bindToUnit(1);
     GeoPrimitives::singleton().quad.draw(shaderPostAnalog);
     
     //Scaling buffer to window
     window.bindFramebuffer();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
     shaderSimple.use();
     fboMain.getTexture().bindToUnit(0);
     rect.draw(shaderSimple);
@@ -96,4 +112,16 @@ Demo& Demo::singleton() {
         return *instance;
     else
         std::cout << "Cannot give uninitialized Demo instance.\n";
+}
+
+float Demo::getInternalAspectRatio() {
+    return internalAspectRatio;
+}
+
+vec2 Demo::getInternalResolution() {
+    return internalRes;
+}
+
+Sync& Demo::getSync() {
+    return sync;
 }

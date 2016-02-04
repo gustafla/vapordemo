@@ -1,6 +1,6 @@
 # A makefile.
 
-SRCS=main.cpp demo.cpp demo_drawable.cpp parts/part_pascal_triangles.cpp
+SRCS=main.cpp demo.cpp demo_drawable.cpp sync_track.cpp sync.cpp parts/part_pascal_triangles.cpp
 TARGET=demo
 OBJS=$(SRCS:.cpp=.o)
 CFLAGS=-O2 -MMD -MP

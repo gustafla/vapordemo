@@ -10,5 +10,4 @@ class PartPascalTriangles: public DemoDrawable {
         virtual void draw();
     private:
         Program shader;
-        Texture testImage;
 };

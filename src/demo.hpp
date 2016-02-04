@@ -8,9 +8,8 @@
 #include <vector>
 #include "demo_drawable.hpp"
 #include "scaling_rectangle.hpp"
-
-#define DEMO_W 320
-#define DEMO_H 240
+#include "sync.hpp"
+#include "demo_consts.hpp"
 
 void setTextureUniforms(Program& shader, unsigned int n=4);
 
@@ -18,6 +17,7 @@ class Demo: public Application {
     private:
         Demo(Window& _window);
         ~Demo();
+        static Demo* instance;
         
     public:
         virtual void draw();
@@ -27,19 +27,24 @@ class Demo: public Application {
         static Demo& singleton();
         
         Window& getWindow();
-        
-        static Demo* instance;
+        Sync& getSync();
+        float getInternalAspectRatio();
+        vec2 getInternalResolution();
         
     protected:
         std::vector<DemoDrawable*> parts;
-        unsigned int currentPart;
+        
+        Sync sync;
         
         Program shaderPostAnalog;
+        Program shaderPostBlur;
         Program shaderSimple;
         //Texture texturePostAnalogNoise;
         Framebuffer fboPostAnalog;
+        Framebuffer fboPostBlur;
         Framebuffer fboMain;
         
         vec2 internalRes;
+        float internalAspectRatio;
         ScalingRectangle rect;
 };
