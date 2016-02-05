@@ -22,11 +22,11 @@ float SyncTrack::getValue(float t) {
         float prevt;
         for(i=0; i<samples.size(); i++) {
             nextt = samples[i].x;
-            if (t<nextt)
+            if (t<=nextt)
                 break; //Sanic fast ;)
         }
         prevt = samples[i-1].x;
-        
+        //TODO: nan issues here
         float prev = samples[i-1].y, next = samples[i].y;
         switch (interpolationMode) {
             case ST_LAST_SAMPLE:

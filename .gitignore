@@ -1,27 +1,22 @@
 # Binaries
-
 demo
 *.a
 
-# Data
+# Debug information
+gmon.out
 
+# Data
 data/
 
 # Build intermediate files
-
 *.o
 *.d
 
-
 # Logs
-
 log*
 
-
 #big files
-
 *.wav
 
 #library
-
 src/lib3dapp

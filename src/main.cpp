@@ -6,8 +6,10 @@
 #include <vector>
 #include <cstdlib>
 #include "graphics.hpp"
+#include "demo_consts.hpp"
 
 void cleanup() {
+    Demo::singleton().getWindow().close();
     Demo::destroySingleton();
     cleanupGraphics();
 }
@@ -15,8 +17,12 @@ void cleanup() {
 int main(int argc, char* argv[]) {
     initializeGraphics();
     
-    const Config conf(argc, argv);
-    Window window(conf, "Revision demo test");
+    Config conf(argc, argv);
+    if (!conf.fullscreen) {
+        conf.w = DEMO_W*DEMO_POST_SIZE_MULT;
+        conf.h = DEMO_H*DEMO_POST_SIZE_MULT;
+    }
+    Window window(conf, "Revision demo test", vec2(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT));
     Demo::createSingleton(window);
     atexit(cleanup);
 
@@ -36,6 +42,6 @@ int main(int argc, char* argv[]) {
         
         check();
     }
-
+    
     return 0;
 }

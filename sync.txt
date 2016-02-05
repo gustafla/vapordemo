@@ -1,9 +1,22 @@
-# 0: Part channel
+# 0: Part
 t p
 s 0 0
 
-# 1: Brightness channel
-t p
-s 0 -1
-s 5 0
-s 10 1
+# 1: Brightness
+t s
+s 0 0
+s 2 0
+s 4 1.3
+s 6 0
+
+# 2: Contrast
+t s
+s 0 1.1
+s 2 1.1
+s 4 5
+s 6 1.1
+
+# 3: Blur mix amount
+t s
+s 0 1.0
+s 2.0 0.6

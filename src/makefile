@@ -3,7 +3,7 @@
 SRCS=main.cpp demo.cpp demo_drawable.cpp sync_track.cpp sync.cpp parts/part_pascal_triangles.cpp
 TARGET=demo
 OBJS=$(SRCS:.cpp=.o)
-CFLAGS=-O2 -MMD -MP
+CFLAGS=-O2 -MMD -MP -pg -g
 debug:CFLAGS=-g -MMD -MP -DDEBUG_BUILD
 INCLUDES=-I./ -I./lib3dapp/ -I./parts/
 LFLAGS=-L./lib3dapp/

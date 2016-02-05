@@ -30,8 +30,8 @@ shaderPostAnalog(shaderPath("simple.vert"), shaderPath("analog.frag")),
 shaderPostBlur(shaderPath("simple.vert"), shaderPath("fastblur.frag")),
 shaderSimple(shaderPath("simple.vert"), shaderPath("generic.frag")),
 fboPostAnalog(DEMO_W, DEMO_H),
-fboPostBlur(DEMO_W, DEMO_H),
-fboMain(DEMO_W, DEMO_H) {
+fboPostBlur(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT),
+fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
     //glEnable(GL_CULL_FACE);
     //glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -43,7 +43,7 @@ fboMain(DEMO_W, DEMO_H) {
     setTextureUniforms(shaderSimple);
     setTextureUniforms(shaderPostBlur);
     shaderPostBlur.use();
-    glUniform2f(shaderPostBlur.getUfmHandle("resolution"), internalRes.x, internalRes.y);
+    glUniform2f(shaderPostBlur.getUfmHandle("resolution"), DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT);
     
     parts.push_back(new PartPascalTriangles());
 }
@@ -62,25 +62,27 @@ void Demo::draw() {
     
     //Blur to Analog
     fboPostBlur.bind();
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderPostBlur.use();
     fboPostAnalog.getTexture().bindToUnit(0);
     GeoPrimitives::singleton().quad.draw(shaderPostBlur);
     
     //Analog postproc to scaling buffer
     fboMain.bind();
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderPostAnalog.use();
     glUniform1f(shaderPostAnalog.getUfmHandle("time"), window.getTime());
     glUniform1f(shaderPostAnalog.getUfmHandle("brightness"), sync.getValue(SYNC_BRIGHTNESS, window.getTime()));
+    glUniform1f(shaderPostAnalog.getUfmHandle("contrast"), sync.getValue(SYNC_CONTRAST, window.getTime()));
     std::cout << sync.getValue(SYNC_BRIGHTNESS, window.getTime()) << std::endl;
+    glUniform1f(shaderPostAnalog.getUfmHandle("blur"), sync.getValue(SYNC_BLUR, window.getTime()));
     fboPostAnalog.getTexture().bindToUnit(0);
     fboPostBlur.getTexture().bindToUnit(1);
     GeoPrimitives::singleton().quad.draw(shaderPostAnalog);
     
     //Scaling buffer to window
     window.bindFramebuffer();
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderSimple.use();
     fboMain.getTexture().bindToUnit(0);
     rect.draw(shaderSimple);
