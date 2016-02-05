@@ -74,7 +74,6 @@ void Demo::draw() {
     glUniform1f(shaderPostAnalog.getUfmHandle("time"), window.getTime());
     glUniform1f(shaderPostAnalog.getUfmHandle("brightness"), sync.getValue(SYNC_BRIGHTNESS, window.getTime()));
     glUniform1f(shaderPostAnalog.getUfmHandle("contrast"), sync.getValue(SYNC_CONTRAST, window.getTime()));
-    std::cout << sync.getValue(SYNC_BRIGHTNESS, window.getTime()) << std::endl;
     glUniform1f(shaderPostAnalog.getUfmHandle("blur"), sync.getValue(SYNC_BLUR, window.getTime()));
     fboPostAnalog.getTexture().bindToUnit(0);
     fboPostBlur.getTexture().bindToUnit(1);

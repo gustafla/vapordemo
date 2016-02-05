@@ -3,15 +3,15 @@
 SRCS=main.cpp demo.cpp demo_drawable.cpp sync_track.cpp sync.cpp parts/part_pascal_triangles.cpp
 TARGET=demo
 OBJS=$(SRCS:.cpp=.o)
-CFLAGS=-O2 -MMD -MP -pg -g
-debug:CFLAGS=-g -MMD -MP -DDEBUG_BUILD
+CFLAGS=-O3 -MMD -MP
+debug:CFLAGS=-g -pg -MMD -MP -DDEBUG_BUILD
 INCLUDES=-I./ -I./lib3dapp/ -I./parts/
 LFLAGS=-L./lib3dapp/
 LIBS=-lGL -lSDL2 -lGLEW -l3dapp
 LIBS_CUSTOM=
 CC=g++
 
-raspi:CFLAGS=-O2 -MMD -MP -fPIC -DRASPI_BUILD
+raspi:CFLAGS=-O3 -MMD -MP -DRASPI_BUILD
 raspi:INCLUDES=-I/opt/vc/include/ -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/src/hello_pi/libs/ilclient -I/opt/vc/src/hello_pi/libs/vgfont -I./ -I./lib3dapp/ -I./parts/
 raspi:LFLAGS=-L/opt/vc/lib -L./lib3dapp/
 raspi:LIBS=-lGLESv2 -lEGL -lbcm_host -l3dapp
