@@ -1,6 +1,6 @@
 #include <iostream>
 #include "window.hpp"
-#include "config.hpp"
+#include "demo_config.hpp"
 #include "demo.hpp"
 #include "vectors.hpp"
 #include <vector>
@@ -8,17 +8,27 @@
 #include "graphics.hpp"
 #include "demo_consts.hpp"
 #include "define.hpp"
+#include "music.hpp"
+
+MusicPlayer* player=NULL;
 
 void cleanup() {
     Demo::singleton().getWindow().close();
     Demo::destroySingleton();
+    if (player)
+        delete player;
     cleanupGraphics();
+}
+
+void musicCallbackWrapper(void* ud, uint8_t* st, int l) {
+    if (player)
+        player->fillBuffer(st, l);
 }
 
 int main(int argc, char* argv[]) {
     initializeGraphics();
     
-    Config conf(argc, argv);
+    DemoConfig conf(argc, argv);
     if (!conf.fullscreen) {
         if (conf.w == SCREEN_W)
             conf.w = DEMO_W*DEMO_POST_SIZE_MULT;
@@ -33,6 +43,9 @@ int main(int argc, char* argv[]) {
     float tLast=0;
     const float TIME=5.0f;
 
+    player = new MusicPlayer(DEMO_MUSIC_FILE, musicCallbackWrapper);
+    player->startPlayback();
+	Demo::singleton().startTimer(conf.t);
     while(Demo::singleton().isRunning()) {
         Demo::singleton().draw();
         

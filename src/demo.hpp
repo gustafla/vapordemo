@@ -6,7 +6,7 @@
 #include "vectors.hpp"
 #include <iostream>
 #include <vector>
-#include "demo_drawable.hpp"
+#include "demo_part.hpp"
 #include "scaling_rectangle.hpp"
 #include "sync.hpp"
 #include "demo_consts.hpp"
@@ -30,9 +30,11 @@ class Demo: public Application {
         Sync& getSync();
         float getInternalAspectRatio();
         vec2 getInternalResolution();
+        float getTime();
+        void startTimer(float t=0.0f);
         
     protected:
-        std::vector<DemoDrawable*> parts;
+        std::vector<DemoPart*> parts;
         
         Sync sync;
         
@@ -47,4 +49,5 @@ class Demo: public Application {
         vec2 internalRes;
         float internalAspectRatio;
         ScalingRectangle rect;
+        float demoStart;
 };

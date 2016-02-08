@@ -1,6 +1,6 @@
 # A makefile.
 
-SRCS=main.cpp demo.cpp demo_drawable.cpp sync_track.cpp sync.cpp parts/part_pascal_triangles.cpp
+SRCS=main.cpp demo.cpp demo_part.cpp sync_track.cpp sync.cpp parts/part_triangles.cpp parts/part_logo.cpp music.cpp demo_config.cpp
 TARGET=demo
 OBJS=$(SRCS:.cpp=.o)
 CFLAGS=-O3 -MMD -MP
@@ -14,7 +14,7 @@ CC=g++
 raspi:CFLAGS=-O3 -MMD -MP -DRASPI_BUILD
 raspi:INCLUDES=-I/opt/vc/include/ -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/src/hello_pi/libs/ilclient -I/opt/vc/src/hello_pi/libs/vgfont -I./ -I./lib3dapp/ -I./parts/
 raspi:LFLAGS=-L/opt/vc/lib -L./lib3dapp/
-raspi:LIBS=-lGLESv2 -lEGL -lbcm_host -l3dapp
+raspi:LIBS=-lGLESv2 -lEGL -lbcm_host -lSDL -l3dapp
 
 all: $(TARGET)
 	@echo "Finished."

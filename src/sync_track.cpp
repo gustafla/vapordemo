@@ -46,3 +46,9 @@ float SyncTrack::getValue(float t) {
 unsigned int SyncTrack::getNumSamples() {
     return samples.size();
 }
+
+float SyncTrack::getTime(unsigned int sample) {
+    if (sample < samples.size())
+        return samples[sample].x;
+    return 0.0f;
+}

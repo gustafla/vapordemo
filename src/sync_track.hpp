@@ -14,6 +14,7 @@ class SyncTrack {
         SyncTrack(SyncTrackInterpolationMode _interpolationMode=ST_LINEAR);
         void pushSample(vec2 sample);
         float getValue(float t);
+        float getTime(unsigned int sample);
         unsigned int getNumSamples();
         
     private:
