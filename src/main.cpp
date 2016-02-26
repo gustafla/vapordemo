@@ -44,7 +44,8 @@ int main(int argc, char* argv[]) {
     const float TIME=5.0f;
 
     player = new MusicPlayer(DEMO_MUSIC_FILE, musicCallbackWrapper);
-    player->startPlayback();
+    if (conf.sound)
+        player->startPlayback();
 	Demo::singleton().startTimer(conf.t);
     while(Demo::singleton().isRunning()) {
         Demo::singleton().draw();

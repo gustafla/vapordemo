@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cp demo ../
-cd ../; ./demo
+cd ../; ./demo --no-sound

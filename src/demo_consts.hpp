@@ -29,9 +29,19 @@
 #define SYNC_BRIGHTNESS         			1
 #define SYNC_CONTRAST           			2
 #define SYNC_BLUR               			3
+
 #define SYNC_PART_TRIANGLES_VIEW_X			4
 #define SYNC_PART_TRIANGLES_VIEW_Y			5
 #define SYNC_PART_TRIANGLES_MAIN_ROTATION	6
 #define SYNC_PART_TRIANGLES_TUNNEL_DEPTH    7
 #define SYNC_PART_TRIANGLES_TUNNEL_DEPTHPAN 8
 #define SYNC_PART_TRIANGLES_TUNNEL_DEPTHROT 9
+
+#define SYNC_PART_LOGO_VIEW_X               10
+#define SYNC_PART_LOGO_VIEW_Y               11
+#define SYNC_PART_LOGO_VIEW_Z               12
+#define SYNC_PART_LOGO_VIEW_RX              13
+#define SYNC_PART_LOGO_VIEW_RY              14
+#define SYNC_PART_LOGO_VIEW_RZ              15
+#define SYNC_PART_LOGO_X                    16
+#define SYNC_PART_LOGO_X_SEPARATION         17

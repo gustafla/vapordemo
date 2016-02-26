@@ -19,7 +19,7 @@ void MusicPlayer::fillBuffer(uint8_t* stream, int len) {
 }
 
 MusicPlayer::MusicPlayer(std::string filename, void wrapper(void*, uint8_t*, int)) {
-    std::cout << "Playing " << filename << "\n";
+    std::cout << "Setting MusicPlayer for " << filename << "\n";
     
     if (SDL_LoadWAV(filename.c_str(), &wavSpec, &wavBuffer, &wavLen) == NULL){
         std::cout << "Can't read " << filename << "\n";
@@ -67,4 +67,5 @@ void MusicPlayer::startPlayback() {
     #else
         SDL_PauseAudioDevice(audioDevice, 0);
     #endif
+    std::cout << "MusicPlayer started.\n";
 }
