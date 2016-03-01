@@ -58,7 +58,7 @@ void PartLogo::draw() {
         sync.getValue(SYNC_PART_LOGO_VIEW_RY, DEMO_T()-start),
         sync.getValue(SYNC_PART_LOGO_VIEW_RZ, DEMO_T()-start)
     );
-    mvp.setModel(fmod(DEMO_T()*5.0, 1.0));
+    mvp.setModel(fmod(DEMO_T()*5.0, 1.0)); //Move the grid and jump to start after one unit to fake infinity
     mvp.buildModel();
     mvp.buildMVP();
     glUniformMatrix4fv(shader.getUfmHandle("mvp"), 1, GL_FALSE, mvp.getMVPArray());

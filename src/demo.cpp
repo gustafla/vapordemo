@@ -85,6 +85,7 @@ void Demo::draw() {
     glUniform1f(shaderPostAnalog.getUfmHandle("brightness"), sync.getValue(SYNC_BRIGHTNESS, getTime()));
     glUniform1f(shaderPostAnalog.getUfmHandle("contrast"), sync.getValue(SYNC_CONTRAST, getTime()));
     glUniform1f(shaderPostAnalog.getUfmHandle("blur"), sync.getValue(SYNC_BLUR, getTime()));
+    glUniform1f(shaderPostAnalog.getUfmHandle("glitchiness"), sync.getValue(SYNC_GLITCHINESS, getTime()));
     fboPostAnalog.getTexture().bindToUnit(0);
     fboPostBlur.getTexture().bindToUnit(1);
     GeoPrimitives::singleton().quad.draw(shaderPostAnalog);
