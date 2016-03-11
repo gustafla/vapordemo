@@ -2,26 +2,50 @@
 t p
 s 0 0
 s 20 1
-s 44 -1
+s 40 2
+s 64 -1
 
 # 1: Brightness
 t s
-s 42 0
-s 44 3
+s 62 0
+s 64 3
 
 # 2: Contrast
 t s
 s 0 0.0
 s 2 1.1
-s 42 1.1
-s 44 5
+s 62 1.1
+s 64 5
 
 # 3: Blur mix amount
 t s
 s 1 1.0
 s 2 0.6
 
-# 4: Tri part View X
+# 4: Glitchiness
+t s
+s 0 2.0
+s 3 0.1
+s 7 0.1
+s 7.3 1.5
+s 8 0.1
+s 9 0.1
+s 9.7 2.0
+s 10.1 0.1
+s 18 0.1
+s 19 2.0
+s 19.9 0.6
+s 21 2.2
+s 21.4 0.1
+s 25 0.1
+s 26 2.0
+s 27 0.1
+s 30 0.1
+s 31 2.0
+s 32 2.5
+s 33 0.1
+
+# 5: Tri part View X
 t s
 s 2 -12
 s 4 0.1
@@ -35,20 +59,20 @@ s 21 -0.4
 s 23 0.4
 s 25 -0.4
 
-# 5: Tri part View Y
+# 6: Tri part View Y
 t s
 s 2 -0.1
 s 4 -0.6
 s 10 -0.5
 
-# 6: Tri part rotation
+# 7: Tri part rotation
 t s
 s 2 0
 s 4 0.4
 s 8 -0.3
 s 10 0.2
 
-# 7: Tri part Tunnel depth
+# 8: Tri part Tunnel depth
 t s
 s 4 0
 s 6 4
@@ -57,38 +81,38 @@ s 10 0
 s 13 -1
 s 120 3000
 
-# 8: Tri part Tunnel depth panning
+# 9: Tri part Tunnel depth panning
 t s
 s 7 0
 s 10 -4
 s 12 4
 s 16 0
 
-# 9: Tri part Tunnel depth rotation
+# 10: Tri part Tunnel depth rotation
 t s
 s 21 0
 s 25 10
 
-# 10: Logo part view x
+# 11: Logo part view x
 t s
 s 0 0
 s 10 2
 s 20 -2
 
-# 11: Logo part view y
+# 12: Logo part view y
 t s
 s 0 -10
 s 2 -3
 
-# 12: Logo part view z
+# 13: Logo part view z
 t s
 s 0 0
 
-# 13: Logo part view xr
+# 14: Logo part view xr
 t s
 s 0 -0.6
 
-# 14: Logo part view yr
+# 15: Logo part view yr
 t s
 s 0 1.2
 s 5 2.3
@@ -100,16 +124,16 @@ s 20 6.0
 #s 15 1.9
 #s 20 1.2
 
-# 15: Logo part view zr
+# 16: Logo part view zr
 t s
 s 0 0
 
-# 16: Logo part logo x pos
+# 17: Logo part logo x pos
 t s
 s 6 0
 s 10 6
 
-# 17: Logo part logo x separation
+# 18: Logo part logo x separation
 t s
 s 0 -0.1
 s 1.5 0

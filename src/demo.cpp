@@ -10,6 +10,7 @@
 
 #include "part_triangles.hpp"
 #include "part_logo.hpp"
+#include "part_vapor1.hpp"
 
 void setTextureUniforms(Program& shader, unsigned int n) {
     shader.use();
@@ -35,12 +36,11 @@ shaderSimple(shaderPath("simple.vert"), shaderPath("generic.frag")),
 fboPostAnalog(DEMO_W, DEMO_H),
 fboPostBlur(DEMO_W/2, DEMO_H/2),
 fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
-    //glEnable(GL_CULL_FACE);
-    //glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     check();
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     check();
+    //glEnable(GL_CULL_FACE);
     
     fboPostBlur.getTexture().setFilter(GL_LINEAR);
     //fboPostAnalog.getTexture().setFilter(GL_LINEAR);
@@ -52,7 +52,8 @@ fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
     glUniform2f(shaderPostBlur.getUfmHandle("resolution"), DEMO_W/2, DEMO_H/2);
 
     parts.push_back(new PartLogo(sync.getTime(SYNC_PART, 0)));
-    parts.push_back(new PartTriangles(sync.getTime(SYNC_PART, 1)));
+    parts.push_back(new PartVapor1(sync.getTime(SYNC_PART, 1)));
+    parts.push_back(new PartTriangles(sync.getTime(SYNC_PART, 2)));
 }
 
 Demo::~Demo() {
@@ -63,6 +64,7 @@ Demo::~Demo() {
 
 void Demo::draw() {
     fboPostAnalog.bind();
+    //glClearColor(1.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     float part = sync.getValue(SYNC_PART, getTime());
@@ -98,6 +100,7 @@ void Demo::draw() {
     rect.draw(shaderSimple);
     
     window.swapBuffers();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     check();
 }
 

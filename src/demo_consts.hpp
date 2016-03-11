@@ -14,8 +14,9 @@
 #define DEMO_POST_SIZE_MULT 2
 
 // Misc
-#define DEMO_BPS (128.0f/120.0f)
+#define DEMO_BPS 1 //Later!
 #define DEMO_MUSIC_FILE "data/audio/music.wav"
+#define DEMO_PI 3.14159265
 
 // Palette
 #define DEMO_C_BLACK vec3(0.0,0.0,0.0)

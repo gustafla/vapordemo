@@ -1,6 +1,6 @@
 # A makefile.
 
-SRCS=main.cpp demo.cpp demo_part.cpp sync_track.cpp sync.cpp parts/part_triangles.cpp parts/part_logo.cpp music.cpp demo_config.cpp
+SRCS=main.cpp demo.cpp demo_part.cpp sync_track.cpp sync.cpp parts/part_triangles.cpp parts/part_logo.cpp parts/part_vapor1.cpp music.cpp demo_config.cpp
 TARGET=demo
 OBJS=$(SRCS:.cpp=.o)
 CFLAGS=-O3 -MMD -MP

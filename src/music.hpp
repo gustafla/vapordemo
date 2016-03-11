@@ -8,7 +8,7 @@
 
 class MusicPlayer {
     public:
-        MusicPlayer(std::string filename, void wrapper(void*, uint8_t*, int));
+        MusicPlayer(std::string filename, void wrapper(void*, uint8_t*, int), float t=0.0);
         ~MusicPlayer();
         void startPlayback();
         

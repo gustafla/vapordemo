@@ -18,7 +18,7 @@ void MusicPlayer::fillBuffer(uint8_t* stream, int len) {
     //std::cout << "SDL audio callback running\n";
 }
 
-MusicPlayer::MusicPlayer(std::string filename, void wrapper(void*, uint8_t*, int)) {
+MusicPlayer::MusicPlayer(std::string filename, void wrapper(void*, uint8_t*, int), float t) {
     std::cout << "Setting MusicPlayer for " << filename << "\n";
     
     if (SDL_LoadWAV(filename.c_str(), &wavSpec, &wavBuffer, &wavLen) == NULL){
@@ -48,8 +48,8 @@ MusicPlayer::MusicPlayer(std::string filename, void wrapper(void*, uint8_t*, int
         }
     #endif
     
-    audioPos = wavBuffer;
-    audioLen = wavLen;
+    audioPos = wavBuffer+int(t*wavSpec.freq*wavSpec.channels)*sizeof(uint16_t);
+    audioLen = wavLen-int(t*wavSpec.freq*wavSpec.channels)*sizeof(uint16_t);
 }
 
 MusicPlayer::~MusicPlayer() {
