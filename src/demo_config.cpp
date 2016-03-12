@@ -21,7 +21,7 @@ sound(true) {
             } else {
                 argErr(argv[i-1]);
             }
-        } else if (strcmp(argv[i], "--no-sound") || strcmp(argv[i], "--no-music")) {
+        } else if (strcmp(argv[i], "--no-sound") == 0 || strcmp(argv[i], "--no-music") == 0) {
             sound = false;
         }
     }
