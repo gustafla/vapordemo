@@ -21,6 +21,13 @@ void setTextureUniforms(Program& shader, unsigned int n) {
     }
 }
 
+void setLightingUniforms(Program& shader, float ambient, vec3 sundir) {
+    shader.use();
+    vec4 sundirHmg = vec4(sundir, 0.0f);
+    glUniform4fv(shader.getUfmHandle("sun_direction"), 1, (GLfloat*)&sundirHmg);
+    glUniform1f(shader.getUfmHandle("ambient"), ambient);
+}
+
 Demo* Demo::instance;
 
 Demo::Demo(Window& _window):
@@ -48,6 +55,8 @@ fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
     setTextureUniforms(shaderPostAnalog);
     setTextureUniforms(shaderSimple);
     setTextureUniforms(shaderPostBlur);
+    setLightingUniforms(shaderSimple);
+    
     shaderPostBlur.use();
     glUniform2f(shaderPostBlur.getUfmHandle("resolution"), DEMO_W/2, DEMO_H/2);
 

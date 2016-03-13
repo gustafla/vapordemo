@@ -12,6 +12,7 @@
 #include "demo_consts.hpp"
 
 void setTextureUniforms(Program& shader, unsigned int n=4);
+void setLightingUniforms(Program& shader, float ambient=1.0f, vec3 sundir=vec3(0.0f,0.0f,-1.0f));
 
 class Demo: public Application {
     private:

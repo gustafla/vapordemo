@@ -5,7 +5,7 @@
 #include "demo.hpp"
 #include "define.hpp"
 #include "tga_file.hpp"
-#include "util.hpp"
+#include "gfx_utils.hpp"
 #include <cmath>
 
 PartLogo::PartLogo(float t):
@@ -18,6 +18,8 @@ logoRect(vec2(0), vec2(0)) {
     shader.use();
     setTextureUniforms(shader);
     setTextureUniforms(shader2);
+    setLightingUniforms(shader);
+    setLightingUniforms(shader2);
     
     logoRect.resize(vec2(logo.getWidth(), logo.getHeight()), vec2(DEMO_W, DEMO_H));
     

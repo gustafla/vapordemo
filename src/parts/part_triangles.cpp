@@ -7,7 +7,7 @@
 #include <cmath>
 #include "demo_consts.hpp"
 #include "tga_file.hpp"
-#include "util.hpp"
+#include "gfx_utils.hpp"
 
 PartTriangles::PartTriangles(float t):
 DemoPart(t),
@@ -18,6 +18,9 @@ bg(loadTGAFile(texturePath("vapor.tga"))),
 mvp(getPProjMat(45, ((1.0f*DEMO_W)/(1.0f*DEMO_H)), 0.1, 40.0)) {
 	setTextureUniforms(shaderMvp);
 	setTextureUniforms(shaderSimple);
+    setLightingUniforms(shaderMvp);
+	setLightingUniforms(shaderSimple);
+    
     shaderSimple.use();
     glUniform4f(shaderSimple.getUfmHandle("color"), 0.0, 0.0, 0.0, 0.4);
 	mvp.setView();
