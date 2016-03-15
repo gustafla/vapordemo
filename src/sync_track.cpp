@@ -18,6 +18,7 @@ float SyncTrack::getValue(float t) {
         if (t>samples.back().x)
             return samples.back().y;
         
+        //TODO: Binary search could be applied here?
         int i;
         float nextt;
         float prevt;
@@ -26,7 +27,6 @@ float SyncTrack::getValue(float t) {
             if (t<=nextt)
                 break;
         }
-        
         prevt = samples[i-1].x;
         
         float prev = samples[i-1].y, next = samples[i].y;
@@ -38,11 +38,9 @@ float SyncTrack::getValue(float t) {
             case ST_SMOOTH:
                 return smoothstep(prevt, nextt, t)*(next-prev)+prev;
         }
-    } else {
-        return 0.0f;
     }
     
-    return 0.0f; //Just in case :p
+    return 0.0f;
 }
 
 unsigned int SyncTrack::getNumSamples() {

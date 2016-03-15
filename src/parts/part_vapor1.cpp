@@ -5,7 +5,7 @@
 #include "gfx_utils.hpp"
 #include <cmath>
 
-#define PI2 2.0*DEMO_PI
+#define PI2 (2*DEMO_PI)
 
 PartVapor1::PartVapor1(float t):
 DemoPart(t),
@@ -33,7 +33,7 @@ void PartVapor1::draw() {
     
     shader.use();
     pillarTexture.bindToUnit(0);
-    mvp.setModelRotation(0.0, DEMO_T(), 0.1);
+    mvp.setModelRotation(0.0, DEMO_T()*0.6, 0.1);
     mvp.setModelTranslation(0.8, 0.0, 0.0);
     mvp.buildModel();
     mvp.buildMVP();
@@ -60,42 +60,41 @@ float getWEnd(float y, float r) {
     return 0.45;
 }
 
+void pushTrianglePositionNormal(Mesh& mesh, vec4 a, vec4 b, vec4 c) {
+    mesh.pushPosition(a);
+    mesh.pushPosition(b);
+    mesh.pushPosition(c);
+    vec4 normal = triangleNormal(a, b, c);
+    for (int i=0; i<3; i++)
+        mesh.pushNormal(normal);
+}
+
 void fillCylindricalMesh(Mesh& mesh, const float STRIP_H, const float STRIP_W, float start, float stop, float radiusFunc(float,float)) {
-    vec4 normal, a, b, c;
-    
     for (float y=start; y<stop; y+=STRIP_H) {
         for (float r=0.0; r<PI2; r+=STRIP_W) {
-                a = vec4(std::sin(r)*radiusFunc(y,r), y, std::cos(r)*radiusFunc(y,r), 1.0);
-                b = vec4(std::sin(r+STRIP_W)*radiusFunc(y,r+STRIP_W), y, std::cos(r+STRIP_W)*radiusFunc(y,r+STRIP_W), 1.0);
-                c = vec4(std::sin(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), y+STRIP_H, std::cos(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), 1.0);
-                mesh.pushPosition(a);
-                mesh.pushPosition(b);
-                mesh.pushPosition(c);
-                mesh.pushTexcoord(vec2(((r)/PI2)/10, (y+1)/2));
-                mesh.pushTexcoord(vec2(((r+STRIP_W)/PI2)/10, (y+1)/2));
-                mesh.pushTexcoord(vec2(((r+STRIP_W)/PI2)/10, (y+STRIP_H+1)/2));
-                normal = triangleNormal(a, b, c);
-                for (int i=0; i<3; i++)
-                    mesh.pushNormal(normal);
-                    
-                a = vec4(std::sin(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), y+STRIP_H, std::cos(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), 1.0);
-                b = vec4(std::sin(r)*radiusFunc(y+STRIP_H,r), y+STRIP_H, std::cos(r)*radiusFunc(y+STRIP_H,r), 1.0);
-                c = vec4(std::sin(r)*radiusFunc(y,r), y, std::cos(r)*radiusFunc(y,r), 1.0);
-                mesh.pushPosition(a);
-                mesh.pushPosition(b);
-                mesh.pushPosition(c);
-                mesh.pushTexcoord(vec2(((r+STRIP_W)/PI2)/10, (y+STRIP_H+1)/2));
-                mesh.pushTexcoord(vec2(((r)/PI2)/10, (y+STRIP_H+1)/2));
-                mesh.pushTexcoord(vec2(((r)/PI2)/10, (y+1)/2));
-                normal = triangleNormal(a, b, c);
-                for (int i=0; i<3; i++)
-                    mesh.pushNormal(normal);
+            pushTrianglePositionNormal( mesh,
+                vec4(std::sin(r)*radiusFunc(y,r), y, std::cos(r)*radiusFunc(y,r), 1.0),
+                vec4(std::sin(r+STRIP_W)*radiusFunc(y,r+STRIP_W), y, std::cos(r+STRIP_W)*radiusFunc(y,r+STRIP_W), 1.0),
+                vec4(std::sin(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), y+STRIP_H, std::cos(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), 1.0)
+            );
+            mesh.pushTexcoord(vec2(((r)/PI2), (y+1)/2));
+            mesh.pushTexcoord(vec2(((r+STRIP_W)/PI2), (y+1)/2));
+            mesh.pushTexcoord(vec2(((r+STRIP_W)/PI2), (y+STRIP_H+1)/2));
+                
+            pushTrianglePositionNormal( mesh,
+                vec4(std::sin(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), y+STRIP_H, std::cos(r+STRIP_W)*radiusFunc(y+STRIP_H,r+STRIP_W), 1.0),
+                vec4(std::sin(r)*radiusFunc(y+STRIP_H,r), y+STRIP_H, std::cos(r)*radiusFunc(y+STRIP_H,r), 1.0),
+                vec4(std::sin(r)*radiusFunc(y,r), y, std::cos(r)*radiusFunc(y,r), 1.0)
+            );
+            mesh.pushTexcoord(vec2(((r+STRIP_W)/PI2), (y+STRIP_H+1)/2));
+            mesh.pushTexcoord(vec2(((r)/PI2), (y+STRIP_H+1)/2));
+            mesh.pushTexcoord(vec2(((r)/PI2), (y+1)/2));
         }
     }
 }
 
 void fillCircularMesh(Mesh& mesh, bool up, const float STRIP_W, float y, float radius) {
-    vec4 normal, a, b, c;
+    vec4 a, b, c;
     for (float r=0.0; r<PI2; r+=STRIP_W) {
         if (up) {
             a = vec4(0.0f, y, 0.0f, 1.0f);
@@ -112,10 +111,7 @@ void fillCircularMesh(Mesh& mesh, bool up, const float STRIP_W, float y, float r
             mesh.pushTexcoord(vec2(std::cos(r)/2+1, std::sin(r)/2+1));
             mesh.pushTexcoord(vec2(std::cos(r+STRIP_W)/2+1, std::sin(r+STRIP_W)/2+1));
         }
-        mesh.pushPosition(a); mesh.pushPosition(b); mesh.pushPosition(c);
-        normal = triangleNormal(a, b, c);
-        for (int i=0; i<3; i++)
-            mesh.pushNormal(normal);
+        pushTrianglePositionNormal(mesh, a, b, c);
     }
 }
 
@@ -123,7 +119,7 @@ void PartVapor1::genPillarMesh() {
     Mesh mesh;
     
     const float STRIP_H = 0.5;
-    const float STRIP_W = 0.06;
+    const float STRIP_W = 0.1;
     const float HALF_PI = DEMO_PI/2.0;
     
     fillCylindricalMesh(mesh, STRIP_H, STRIP_W, -1.0, 1.0, getW);
