@@ -1,5 +1,6 @@
 #include "sync_track.hpp"
 #include "gfx_utils.hpp"
+#include <algorithm>
 
 SyncTrack::SyncTrack(SyncTrackInterpolationMode _interpolationMode):
 interpolationMode(_interpolationMode) {
@@ -11,7 +12,7 @@ void SyncTrack::pushSample(vec2 sample) {
 }
 
 float SyncTrack::getValue(float t) {
-    if (samples.size()) { //ONLY FOR SAMPLES IN ASCENDING TIME ORDER!! (use sorting algorithm before if needed)
+    if (samples.size()) {
         if (t<samples[0].x)
             return samples[0].y;
         if (t>samples.back().x)
@@ -23,10 +24,11 @@ float SyncTrack::getValue(float t) {
         for(i=0; i<samples.size(); i++) {
             nextt = samples[i].x;
             if (t<=nextt)
-                break; //Sanic fast ;)
+                break;
         }
+        
         prevt = samples[i-1].x;
-        //TODO: nan issues here
+        
         float prev = samples[i-1].y, next = samples[i].y;
         switch (interpolationMode) {
             case ST_LAST_SAMPLE:
@@ -51,4 +53,12 @@ float SyncTrack::getTime(unsigned int sample) {
     if (sample < samples.size())
         return samples[sample].x;
     return 0.0f;
+}
+
+bool sampleCompare(const vec2& p1, const vec2& p2) {
+    return (p1.x < p2.x);
+}
+
+void SyncTrack::sort() {
+    std::sort(samples.begin(), samples.end(), sampleCompare);
 }

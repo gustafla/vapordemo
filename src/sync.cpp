@@ -44,12 +44,12 @@ Sync::Sync(std::string filename) {
         } else if (lines[i].c_str()[0] == 's' && lines[i].c_str()[1] == ' ') {
             if (tracks.size() != 0) {
                 sscanf(lines[i].c_str(), "s %f %f", &x, &y);
-                if (tracks.back().getNumSamples() != 0) {
+                /*if (tracks.back().getNumSamples() != 0) {
                     if (x < px) {
                         std::cout << "Sync: line " << i << ": Sample time lower than previous. Samples have to be in ascending time order.\n";
                         exit(ERR_SYNC);
                     }
-                }
+                }*/
                 tracks.back().pushSample(vec2(x, y));
                 px = x;
             } else {
@@ -59,6 +59,9 @@ Sync::Sync(std::string filename) {
             if (lines[i].length())
                 std::cout << "Sync: line " << i << ": Unrecognized content \"" << lines[i] << "\".\n";
         }
+    }
+    for (std::vector<SyncTrack>::iterator i = tracks.begin(); i != tracks.end(); i++) {
+        i->sort();
     }
 }
 

@@ -16,7 +16,7 @@ class SyncTrack {
         float getValue(float t);
         float getTime(unsigned int sample);
         unsigned int getNumSamples();
-        
+        void sort();
     private:
         SyncTrackInterpolationMode interpolationMode;
         std::vector<vec2> samples;
