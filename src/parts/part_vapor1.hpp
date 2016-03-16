@@ -6,6 +6,7 @@
 #include "mvp.hpp"
 #include "demo_part.hpp"
 #include "static_model.hpp"
+#include "lighting_state.hpp"
 
 class PartVapor1: public DemoPart {
     public:
@@ -18,6 +19,7 @@ class PartVapor1: public DemoPart {
         StaticModel* pillar;
         
         MVP mvp;
-        Program shader;
+        Program* shader;
         Texture pillarTexture;
+        LightingState lights;
 };

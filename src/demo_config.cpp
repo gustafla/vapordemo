@@ -7,9 +7,13 @@ DemoConfig::DemoConfig(int argc, char** argv):
 Config(argc, argv),
 t(0.0f),
 sound(true) {
-    int i=1;
+    parseArgs(argc, argv);
+}
 
-    for (; i<argc; i++) {
+void DemoConfig::parseArgs(int argc, char** argv) {
+    int i;
+
+    for (i=1; i<argc; i++) {
         if (strcmp(argv[i], "-t") == 0) {
             i++;
             if (i < argc) {

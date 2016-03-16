@@ -5,28 +5,13 @@
 #include "shader.hpp"
 #include "geo_primitives.hpp"
 #include "vectors.hpp"
+#include "uniforms.hpp"
 #include <string>
 #include <cstdio>
 
 #include "part_triangles.hpp"
 #include "part_logo.hpp"
 #include "part_vapor1.hpp"
-
-void setTextureUniforms(Program& shader, unsigned int n) {
-    shader.use();
-    char buf[16];
-    for(GLuint i=0; i<n; i++) {
-        sprintf(buf, "texture%d", i);
-        glUniform1i(shader.getUfmHandle(std::string(buf)), i);
-    }
-}
-
-void setLightingUniforms(Program& shader, float ambient, vec3 sundir) {
-    shader.use();
-    vec4 sundirHmg = vec4(sundir, 0.0f);
-    glUniform4fv(shader.getUfmHandle("sun_direction"), 1, (GLfloat*)&sundirHmg);
-    glUniform1f(shader.getUfmHandle("ambient"), ambient);
-}
 
 Demo* Demo::instance;
 

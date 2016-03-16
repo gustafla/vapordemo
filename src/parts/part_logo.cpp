@@ -6,6 +6,7 @@
 #include "define.hpp"
 #include "tga_file.hpp"
 #include "gfx_utils.hpp"
+#include "uniforms.hpp"
 #include <cmath>
 
 PartLogo::PartLogo(float t):
@@ -61,9 +62,7 @@ void PartLogo::draw() {
         sync.getValue(SYNC_PART_LOGO_VIEW_RZ, DEMO_T()-start)
     );
     mvp.setModel(fmod(DEMO_T()*5.0, 1.0)); //Move the grid and jump to start after one unit to fake infinity
-    mvp.buildModel();
-    mvp.buildMVP();
-    glUniformMatrix4fv(shader.getUfmHandle("mvp"), 1, GL_FALSE, mvp.getMVPArray());
+    mvp.apply(shader);
     
     glEnableVertexAttribArray(shader.getAtrHandle(NAME_POS));
     glVertexAttribPointer(shader.getAtrHandle(NAME_POS), SIZE_POS, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*SIZE_POS, (GLfloat*)vertices);

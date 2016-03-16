@@ -8,6 +8,7 @@
 #include "demo_consts.hpp"
 #include "tga_file.hpp"
 #include "gfx_utils.hpp"
+#include "uniforms.hpp"
 
 PartTriangles::PartTriangles(float t):
 DemoPart(t),
@@ -16,10 +17,8 @@ shaderSimple(shaderPath("simple.vert"), shaderPath("generic.frag")),
 frac(loadTGAFile(texturePath("trianglefrac.tga"))),
 bg(loadTGAFile(texturePath("vapor.tga"))),
 mvp(getPProjMat(45, ((1.0f*DEMO_W)/(1.0f*DEMO_H)), 0.1, 40.0)) {
-	setTextureUniforms(shaderMvp);
-	setTextureUniforms(shaderSimple);
-    setLightingUniforms(shaderMvp);
-	setLightingUniforms(shaderSimple);
+	setUniforms(shaderMvp);
+	setUniforms(shaderSimple);
     
     shaderSimple.use();
     glUniform4f(shaderSimple.getUfmHandle("color"), 0.0, 0.0, 0.0, 0.4);
@@ -45,10 +44,8 @@ void PartTriangles::draw() {
 		c=mix(ca, cb, sin(i/(I)*3.1415*2.0)*0.5+0.5);
 		mvp.setModel(sync.getValue(SYNC_PART_TRIANGLES_TUNNEL_DEPTHPAN, DEMO_T()-start)*pow((1.0-i/I), 2.0), 0.0, fmod((i*1.0f)+sync.getValue(SYNC_PART_TRIANGLES_TUNNEL_DEPTH, DEMO_T()-start), I)-I+1, 0.0, sync.getValue(SYNC_PART_TRIANGLES_MAIN_ROTATION, DEMO_T()-start), (2*3.1415)*0.125+sync.getValue(SYNC_PART_TRIANGLES_TUNNEL_DEPTHROT, DEMO_T()-start)*(i/I));
 		mvp.setViewTranslation(sync.getValue(SYNC_PART_TRIANGLES_VIEW_X, DEMO_T()-start), sync.getValue(SYNC_PART_TRIANGLES_VIEW_Y, DEMO_T()-start));
-		mvp.buildModel();
-		mvp.buildMVP();
+        mvp.apply(shaderMvp);
 		glUniform4fv(shaderMvp.getUfmHandle("color"), 1, (GLfloat*)&c);
-		glUniformMatrix4fv(shaderMvp.getUfmHandle("mvp"), 1, GL_FALSE, mvp.getMVPArray());
 		GeoPrimitives::singleton().quad.draw(shaderMvp);
 	}
 }

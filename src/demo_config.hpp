@@ -7,4 +7,7 @@ class DemoConfig: public Config {
         DemoConfig(int argc, char** argv);
         float t;
         bool sound;
+        
+    private:
+        void parseArgs(int argc, char** argv);
 };
