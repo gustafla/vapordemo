@@ -4,26 +4,30 @@
 #include "paths.hpp"
 #include "gfx_utils.hpp"
 #include "uniforms.hpp"
+#include "matrices.hpp"
 #include <cmath>
 
 #define PI2 (2*DEMO_PI)
 
+static const Light pointLights[] = {
+};
+
+static const Light directionalLights[] = {
+    Light(vec3(0.2, -0.2, -1.0), vec3(0.6, 0.6, 0.6))
+};
+
 PartVapor1::PartVapor1(float t):
 DemoPart(t),
-lights(0.2f),
+lights(0.2f, pointLights, sizeof(pointLights)/sizeof(pointLights[0]), directionalLights, sizeof(directionalLights)/sizeof(directionalLights[0])),
 pillarTexture(loadTGAFile(texturePath("marble.tga"))),
 mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 10.0)) {
-    genPillarMesh();
-    
-    lights.addDirectionalLight(vec3(0.8, -0.2, 1.0));
+    genMeshes();
     
     shader = new Program(Shader(shaderPath("generic.vert"), lights), Shader(shaderPath("generic.frag"), lights));
     shader->use();
     
-    setTextureUniforms(*shader);
-    setLightingUniforms(*shader, lights);
+    setBaseUniforms(*shader, 1, lights);
     
-    glUniform4f(shader->getUfmHandle("color"), 0.0 , 0.0, 0.0, 0.0);
     mvp.setView(0.0, 0.0, -4.0, 0.0, 0.0, 0.0);
 }
 
@@ -45,7 +49,7 @@ void PartVapor1::draw() {
     mvp.apply(*shader);
     pillar->draw(*shader);
     
-    mvp.setModelRotation(0.0, DEMO_T(), 0.8);
+    mvp.setModelRotation(0.0, DEMO_T(), 0.2);
     mvp.setModelTranslation(-0.8, 0.0, 0.0);
     mvp.apply(*shader);
     pillar->draw(*shader);
@@ -116,6 +120,51 @@ void fillCircularMesh(Mesh& mesh, bool up, const float STRIP_W, float y, float r
     }
 }
 
+void fillPlanarMesh(Mesh& mesh, bool up, const float STRIP_W, const float STRIP_H, float height, float w, float h) {
+    vec3 a, b, c;
+    if (up) {
+        for (float x=-w/2; x<w/2; x+=STRIP_W) {
+            for (float y=-h/2; y<h/2; y+=STRIP_H) {
+                a = vec3(x, height, y);
+                b = vec3(x+STRIP_W, height, y+STRIP_H);
+                c = vec3(x+STRIP_W, height, y);
+                mesh.pushTexcoord(vec2(x/w+0.5, y/w+0.5));
+                mesh.pushTexcoord(vec2((x+STRIP_W)/w+0.5, (y+STRIP_H)/w+0.5));
+                mesh.pushTexcoord(vec2((x+STRIP_W)/w+0.5, y/w+0.5));
+                pushTrianglePositionNormal(mesh, a, b, c);
+                
+                a = vec3(x, height, y);
+                b = vec3(x, height, y+STRIP_H);
+                c = vec3(x+STRIP_W, height, y+STRIP_H);
+                mesh.pushTexcoord(vec2(x/w+0.5, y/w+0.5));
+                mesh.pushTexcoord(vec2(x/w+0.5, (y+STRIP_H)/w+0.5));
+                mesh.pushTexcoord(vec2((x+STRIP_W)/w+0.5, (y+STRIP_H)/w+0.5));
+                pushTrianglePositionNormal(mesh, a, b, c);
+            }
+        }
+    } else {
+        for (float x=-w/2; x<w/2; x+=STRIP_W) {
+            for (float y=-h/2; y<h/2; y+=STRIP_H) {
+                a = vec3(x, height, y);
+                b = vec3(x+STRIP_W, height, y);
+                c = vec3(x+STRIP_W, height, y+STRIP_H);
+                mesh.pushTexcoord(vec2(x/w+0.5, y/w+0.5));
+                mesh.pushTexcoord(vec2((x+STRIP_W)/w+0.5, y/w+0.5));
+                mesh.pushTexcoord(vec2((x+STRIP_W)/w+0.5, (y+STRIP_H)/w+0.5));
+                pushTrianglePositionNormal(mesh, a, b, c);
+                
+                a = vec3(x, height, y);
+                b = vec3(x+STRIP_W, height, y+STRIP_H);
+                c = vec3(x, height, y+STRIP_H);
+                mesh.pushTexcoord(vec2(x/w+0.5, y/w+0.5));
+                mesh.pushTexcoord(vec2((x+STRIP_W)/w+0.5, (y+STRIP_H)/w+0.5));
+                mesh.pushTexcoord(vec2(x/w+0.5, (y+STRIP_H)/w+0.5));
+                pushTrianglePositionNormal(mesh, a, b, c);
+            }
+        }
+    }
+}
+
 void PartVapor1::genPillarMesh() {
     Mesh mesh;
     
@@ -132,4 +181,8 @@ void PartVapor1::genPillarMesh() {
     fillCircularMesh(mesh, false, HALF_PI, -1.1, 0.45);
     
     pillar = new StaticModel(mesh);
+}
+
+void PartVapor1::genMeshes() {
+    genPillarMesh();
 }

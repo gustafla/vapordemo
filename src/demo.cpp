@@ -37,13 +37,10 @@ fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
     fboPostBlur.getTexture().setFilter(GL_LINEAR);
     //fboPostAnalog.getTexture().setFilter(GL_LINEAR);
     
-    setTextureUniforms(shaderPostAnalog);
-    setTextureUniforms(shaderSimple);
-    setTextureUniforms(shaderPostBlur);
-    setLightingUniforms(shaderSimple);
-    
-    shaderPostBlur.use();
-    glUniform2f(shaderPostBlur.getUfmHandle("resolution"), DEMO_W/2, DEMO_H/2);
+    setBaseUniforms(shaderPostAnalog, 2);
+    setBaseUniforms(shaderSimple, 1);
+    setBaseUniforms(shaderPostBlur, 1);shaderPostBlur.use();
+    setResolutionUniform(shaderPostBlur, vec2(DEMO_W/2, DEMO_H/2));
 
     parts.push_back(new PartLogo(sync.getTime(SYNC_PART, 0)));
     parts.push_back(new PartVapor1(sync.getTime(SYNC_PART, 1)));
@@ -77,7 +74,7 @@ void Demo::draw() {
     fboMain.bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderPostAnalog.use();
-    glUniform1f(shaderPostAnalog.getUfmHandle("time"), getTime());
+    setTimeUniform(shaderPostAnalog, getTime());
     glUniform1f(shaderPostAnalog.getUfmHandle("brightness"), sync.getValue(SYNC_BRIGHTNESS, getTime()));
     glUniform1f(shaderPostAnalog.getUfmHandle("contrast"), sync.getValue(SYNC_CONTRAST, getTime()));
     glUniform1f(shaderPostAnalog.getUfmHandle("blur"), sync.getValue(SYNC_BLUR, getTime()));

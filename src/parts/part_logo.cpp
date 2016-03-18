@@ -16,11 +16,8 @@ shader2(Shader(shaderPath("simple.vert")), Shader(shaderPath("generic.frag"))),
 mvp(getPProjMat(45, (DEMO_W/DEMO_H), 0.1, 50.0)),
 logo(loadTGAFile(texturePath("logo.tga"))),
 logoRect(vec2(0), vec2(0)) {
-    shader.use();
-    setTextureUniforms(shader);
-    setTextureUniforms(shader2);
-    setLightingUniforms(shader);
-    setLightingUniforms(shader2);
+    setBaseUniforms(shader);
+    setBaseUniforms(shader2);
     
     logoRect.resize(vec2(logo.getWidth(), logo.getHeight()), vec2(DEMO_W, DEMO_H));
     
@@ -28,21 +25,17 @@ logoRect(vec2(0), vec2(0)) {
         vertices[i*2].x   = -(N_LINES/2);
         vertices[i*2].y   = 0.0;
         vertices[i*2].z   = (((float)i)-(N_LINES/2));
-        vertices[i*2].w   = 1.0;
         vertices[i*2+1].x = (N_LINES/2);
         vertices[i*2+1].y = 0.0;
         vertices[i*2+1].z = vertices[i*2].z;
-        vertices[i*2+1].w = 1.0;
     }
     for (int i = 0; i < N_LINES; i++) {
         vertices[(2*N_LINES)+i*2].x   = (((float)i)-(N_LINES/2));
         vertices[(2*N_LINES)+i*2].y   = 0.0;
         vertices[(2*N_LINES)+i*2].z   = -(N_LINES/2);
-        vertices[(2*N_LINES)+i*2].w   = 1.0;
         vertices[(2*N_LINES)+i*2+1].x = vertices[(2*N_LINES)+i*2].x;
         vertices[(2*N_LINES)+i*2+1].y = 0.0;
         vertices[(2*N_LINES)+i*2+1].z = (N_LINES/2);
-        vertices[(2*N_LINES)+i*2+1].w = 1.0;
     }
 }
 
@@ -64,8 +57,8 @@ void PartLogo::draw() {
     mvp.setModel(fmod(DEMO_T()*5.0, 1.0)); //Move the grid and jump to start after one unit to fake infinity
     mvp.apply(shader);
     
-    glEnableVertexAttribArray(shader.getAtrHandle(NAME_POS));
-    glVertexAttribPointer(shader.getAtrHandle(NAME_POS), SIZE_POS, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*SIZE_POS, (GLfloat*)vertices);
+    glEnableVertexAttribArray(shader.getAtrHandle(NAME_A_POSITION));
+    glVertexAttribPointer(shader.getAtrHandle(NAME_A_POSITION), SIZE_POS, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*SIZE_POS, (GLfloat*)vertices);
     glDrawArrays(GL_LINES, 0, N_LINES*2*2);
     
     glClear(GL_DEPTH_BUFFER_BIT);

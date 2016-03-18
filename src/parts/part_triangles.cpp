@@ -17,8 +17,8 @@ shaderSimple(shaderPath("simple.vert"), shaderPath("generic.frag")),
 frac(loadTGAFile(texturePath("trianglefrac.tga"))),
 bg(loadTGAFile(texturePath("vapor.tga"))),
 mvp(getPProjMat(45, ((1.0f*DEMO_W)/(1.0f*DEMO_H)), 0.1, 40.0)) {
-	setUniforms(shaderMvp);
-	setUniforms(shaderSimple);
+	setBaseUniforms(shaderMvp);
+	setBaseUniforms(shaderSimple);
     
     shaderSimple.use();
     glUniform4f(shaderSimple.getUfmHandle("color"), 0.0, 0.0, 0.0, 0.4);

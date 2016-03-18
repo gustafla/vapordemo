@@ -18,7 +18,7 @@ class PartLogo: public DemoPart {
         Program shader;
         Program shader2;
         MVP mvp;
-        vec4 vertices[N_LINES*2*2];
+        vec3 vertices[N_LINES*2*2];
         ScalingRectangle logoRect;
         Texture logo;
 };

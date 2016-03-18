@@ -13,8 +13,8 @@ s 64 3
 # 2: Contrast
 t s
 s 0 0.0
-s 2 1.1
-s 62 1.1
+s 2 1.05
+s 62 1.05
 s 64 5
 
 # 3: Blur mix amount

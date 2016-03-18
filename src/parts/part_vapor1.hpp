@@ -15,6 +15,7 @@ class PartVapor1: public DemoPart {
         virtual void draw();
         
     private:
+        void genMeshes();
         void genPillarMesh();
         StaticModel* pillar;
         
