@@ -12,13 +12,14 @@
 class PartLogo: public DemoPart {
     public:
         PartLogo(float t);
+        ~PartLogo();
         virtual void draw();
         
     private:
         Program shader;
         Program shader2;
         MVP mvp;
-        vec3 vertices[N_LINES*2*2];
+        StaticModel* grid;
         ScalingRectangle logoRect;
         Texture logo;
 };
