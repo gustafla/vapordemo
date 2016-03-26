@@ -28,7 +28,7 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=56
+current_page=74
 FILE_NAME_0=79;Make;0;EUTF-8;1;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fmakefile;0;4
 FILE_NAME_1=1320;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fmain.cpp;0;4
 FILE_NAME_2=256;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fdemo.hpp;0;4
@@ -85,7 +85,7 @@ FILE_NAME_52=201;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%
 FILE_NAME_53=527;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Fapplication.cpp;0;4
 FILE_NAME_54=400;GLSL;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fdata%2Fshaders%2Fsimple.vert;0;4
 FILE_NAME_55=119;GLSL;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fdata%2Fshaders%2Fgeneric.frag;0;4
-FILE_NAME_56=2106;GLSL;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fdata%2Fshaders%2Fgeneric.vert;0;4
+FILE_NAME_56=1859;GLSL;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fdata%2Fshaders%2Fgeneric.vert;0;4
 FILE_NAME_57=53;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fsync_track.hpp;0;4
 FILE_NAME_58=1286;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fsync_track.cpp;0;4
 FILE_NAME_59=242;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fsync.hpp;0;4
@@ -102,23 +102,24 @@ FILE_NAME_69=784;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2
 FILE_NAME_70=1793;GLSL;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fdata%2Fshaders%2Ffastblur.frag;0;4
 FILE_NAME_71=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fdemo_part.hpp;0;4
 FILE_NAME_72=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fdemo_part.cpp;0;4
-FILE_NAME_73=124;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fparts%2Fpart_logo.hpp;0;4
-FILE_NAME_74=2369;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fparts%2Fpart_logo.cpp;0;4
+FILE_NAME_73=570;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fparts%2Fpart_logo.hpp;0;4
+FILE_NAME_74=1970;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fparts%2Fpart_logo.cpp;0;4
 FILE_NAME_75=114;None;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Ftodo.txt;0;4
 FILE_NAME_76=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Fscaling_rectangle.hpp;0;4
 FILE_NAME_77=1437;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Fscaling_rectangle.cpp;0;4
 FILE_NAME_78=1569;GLSL;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fdata%2Fshaders%2Fanalog.frag;0;4
 FILE_NAME_79=504;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fparts%2Fpart_vapor1.hpp;0;4
 FILE_NAME_80=3797;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fsrc%2Fparts%2Fpart_vapor1.cpp;0;4
-FILE_NAME_81=353;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Fgfx_utils.hpp;0;4
-FILE_NAME_82=774;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Fgfx_utils.cpp;0;4
+FILE_NAME_81=74;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Fgfx_utils.hpp;0;4
+FILE_NAME_82=1105;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Fgfx_utils.cpp;0;4
 FILE_NAME_83=638;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Flighting_state.hpp;0;4
 FILE_NAME_84=144;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Flighting_state.cpp;0;4
 FILE_NAME_85=327;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Funiforms.hpp;0;4
 FILE_NAME_86=880;C++;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fnew_engine%2Fsrc%2Funiforms.cpp;0;4
+FILE_NAME_87=568;GLSL;0;EUTF-8;0;1;0;%2Fhome%2Fluutifa%2Fproj%2Fdemo%2Frevidemo%2Fdata%2Fshaders%2Fpointloop.vert;0;4
 
 [VTE]
-last_dir=/home/luutifa/proj/new_engine
+last_dir=/home/luutifa/proj/demo/revidemo/src
 
 [build-menu]
 GLSLFT_00_LB=Run fragment

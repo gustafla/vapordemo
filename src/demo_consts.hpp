@@ -1,28 +1,28 @@
 #pragma once
 
 // Macros
-#define DEMO_T() (Demo::singleton().getTime())
+#define DEMO_T() (Demo::singleton().getTime(bps, -start))
 
 // Error values
 #define ERR_SYNC  -1
 #define ERR_AUDIO -2
 
 // Video
-#define DEMO_W 320
-#define DEMO_H 240
+#define DEMO_W 320.0
+#define DEMO_H 240.0
 
 #define DEMO_POST_SIZE_MULT 2
 
 // Misc
-#define DEMO_BPS 1 //Later!
+#define DEMO_BPS (86.97f/60.0f)
 #define DEMO_MUSIC_FILE "data/audio/music.wav"
 #define DEMO_PI 3.14159265
 
 // Palette
 #define DEMO_C_BLACK vec3(0.0,0.0,0.0)
 #define DEMO_C_WHITE vec3(1.0,1.0,1.0)
-#define DEMO_C_VPINK vec3(0.9,0.2,0.4)
-#define DEMO_C_DBLUE vec3(0.1,0.2,1.0)
+#define DEMO_C_VPINK vec3(0.5,0.0,0.2)
+#define DEMO_C_DBLUE vec3(0.0,0.1,0.6)
 #define DEMO_C_LBLUE vec3(0.6,0.65,1.0)
 
 // Sync channel names
@@ -47,3 +47,11 @@
 #define SYNC_PART_LOGO_VIEW_RZ              16
 #define SYNC_PART_LOGO_X                    17
 #define SYNC_PART_LOGO_X_SEPARATION         18
+#define SYNC_PART_VAPOR1_PILLAR_XSEP        19
+#define SYNC_PART_LOGO_STARFIELD            20
+#define SYNC_PART_LOGO_FLARE1_OPACITY       21
+#define SYNC_PART_LOGO_FLARE2_OPACITY       22
+#define SYNC_PART_LOGO_FLARE3_OPACITY       23
+#define SYNC_PART_LOGO_PYRAMID_Y            24
+#define SYNC_PART_LOGO_PYRAMID_RECURSION    25
+#define SYNC_PART_LOGO_PYRAMID_EXPLOSION    26

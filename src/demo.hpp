@@ -28,7 +28,7 @@ class Demo: public Application {
         Sync& getSync();
         float getInternalAspectRatio();
         vec2 getInternalResolution();
-        float getTime();
+        float getTime(float scale=1.0, float offset=0.0);
         void startTimer(float t=0.0f);
         
     protected:

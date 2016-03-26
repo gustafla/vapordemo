@@ -11,9 +11,6 @@ class PartTriangles: public DemoPart {
         virtual void draw();
         
     private:
-		Program shaderMvp;
-		Program shaderSimple;
-		Texture frac;
-		Texture bg;
+
 		MVP mvp;
 };

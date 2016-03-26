@@ -12,6 +12,7 @@
 #include "part_triangles.hpp"
 #include "part_logo.hpp"
 #include "part_vapor1.hpp"
+#include "part_trap1.hpp"
 
 Demo* Demo::instance;
 
@@ -39,12 +40,13 @@ fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
     
     setBaseUniforms(shaderPostAnalog, 2);
     setBaseUniforms(shaderSimple, 1);
-    setBaseUniforms(shaderPostBlur, 1);shaderPostBlur.use();
+    setBaseUniforms(shaderPostBlur, 1);
+    shaderPostBlur.use();
     setResolutionUniform(shaderPostBlur, vec2(DEMO_W/2, DEMO_H/2));
 
     parts.push_back(new PartLogo(sync.getTime(SYNC_PART, 0)));
     parts.push_back(new PartVapor1(sync.getTime(SYNC_PART, 1)));
-    parts.push_back(new PartTriangles(sync.getTime(SYNC_PART, 2)));
+    parts.push_back(new PartTrap1(sync.getTime(SYNC_PART, 2), (130.55f/60.0f)));
 }
 
 Demo::~Demo() {
@@ -132,8 +134,8 @@ Sync& Demo::getSync() {
     return sync;
 }
 
-float Demo::getTime() {
-	return (window.getTime()-demoStart)*DEMO_BPS;
+float Demo::getTime(float scale, float offset) {
+	return ((window.getTime()-demoStart)+offset)*scale;
 }
 
 void Demo::startTimer(float t) {
