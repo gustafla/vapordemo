@@ -1,5 +1,5 @@
 #include "sync_track.hpp"
-#include "gfx_utils.hpp"
+#include "3dapp_gfx_utils.hpp"
 #include <algorithm>
 
 SyncTrack::SyncTrack(SyncTrackInterpolationMode _interpolationMode):

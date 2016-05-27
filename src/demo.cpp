@@ -1,15 +1,14 @@
 #include "demo.hpp"
-#include "graphics.hpp"
+#include "3dapp_graphics.hpp"
 #include <iostream>
-#include "paths.hpp"
-#include "shader.hpp"
-#include "geo_primitives.hpp"
-#include "vectors.hpp"
-#include "uniforms.hpp"
+#include "3dapp_paths.hpp"
+#include "3dapp_shader.hpp"
+#include "3dapp_geo_primitives.hpp"
+#include "3dapp_vectors.hpp"
+#include "3dapp_uniforms.hpp"
 #include <string>
 #include <cstdio>
 
-#include "part_triangles.hpp"
 #include "part_logo.hpp"
 #include "part_vapor1.hpp"
 #include "part_trap1.hpp"
@@ -23,9 +22,9 @@ rect(vec2(DEMO_W, DEMO_H), vec2(_window.getWidth(), _window.getHeight())),
 internalRes(DEMO_W, DEMO_H),
 internalAspectRatio(DEMO_W/DEMO_H),
 sync("sync.txt"),
-shaderPostAnalog(shaderPath("simple.vert"), shaderPath("analog.frag")),
-shaderPostBlur(shaderPath("simple.vert"), shaderPath("fastblur.frag")),
-shaderSimple(shaderPath("simple.vert"), shaderPath("generic.frag")),
+shaderPostAnalog(Shader::loadFromFile(shaderPath("simple.vert")), Shader::loadFromFile(shaderPath("analog.frag"))),
+shaderPostBlur(Shader::loadFromFile(shaderPath("simple.vert")), Shader::loadFromFile(shaderPath("fastblur.frag"))),
+shaderSimple(Shader::loadFromFile(shaderPath("simple.vert")), Shader::loadFromFile(shaderPath("generic.frag"))),
 fboPostAnalog(DEMO_W, DEMO_H),
 fboPostBlur(DEMO_W/2, DEMO_H/2),
 fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {

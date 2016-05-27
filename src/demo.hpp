@@ -1,17 +1,17 @@
 #pragma once
 
-#include "application.hpp"
-#include "program.hpp"
-#include "framebuffer.hpp"
-#include "vectors.hpp"
+#include "3dapp_application.hpp"
+#include "3dapp_program.hpp"
+#include "3dapp_framebuffer.hpp"
+#include "3dapp_vectors.hpp"
 #include <iostream>
 #include <vector>
 #include "demo_part.hpp"
-#include "scaling_rectangle.hpp"
+#include "3dapp_scaling_rectangle.hpp"
 #include "sync.hpp"
 #include "demo_consts.hpp"
 
-class Demo: public Application {
+class Demo: public Lib3dapp::Application {
     private:
         Demo(Window& _window);
         ~Demo();

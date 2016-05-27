@@ -1,24 +1,24 @@
 #include "part_logo.hpp"
-#include "paths.hpp"
-#include "geo_primitives.hpp"
+#include "3dapp_paths.hpp"
+#include "3dapp_geo_primitives.hpp"
 #include "demo_consts.hpp"
 #include "demo.hpp"
-#include "define.hpp"
-#include "tga_file.hpp"
-#include "gfx_utils.hpp"
-#include "uniforms.hpp"
-#include "util.hpp"
+#include "3dapp_consts.hpp"
+#include "3dapp_tga_file.hpp"
+#include "3dapp_gfx_utils.hpp"
+#include "3dapp_uniforms.hpp"
+#include "3dapp_util.hpp"
 #include <cmath>
 
 static const float PI2=(2.0*DEMO_PI);
 
 PartLogo::PartLogo(float t):
 DemoPart(t),
-shader(Shader(shaderPath("generic.vert")), Shader(shaderPath("generic.frag"))),
-shaderFlare(Shader(shaderPath("generic.vert")), Shader(shaderPath("generic.frag"))),
-shaderPyramid(Shader(shaderPath("generic.vert")), Shader(shaderPath("solid.frag"))),
-shader2(Shader(shaderPath("simple.vert")), Shader(shaderPath("generic.frag"))),
-shaderStarfield(Shader(shaderPath("generic.vert")), Shader(shaderPath("generic.frag"))),
+shader(Shader::loadFromFile(shaderPath("generic.vert")), Shader::loadFromFile(shaderPath("solid.frag"))),
+shaderFlare(Shader::loadFromFile(shaderPath("generic.vert")), Shader::loadFromFile(shaderPath("generic.frag"))),
+shaderPyramid(Shader::loadFromFile(shaderPath("generic.vert")), Shader::loadFromFile(shaderPath("solid.frag"))),
+shader2(Shader::loadFromFile(shaderPath("simple.vert")), Shader::loadFromFile(shaderPath("generic.frag"))),
+shaderStarfield(Shader::loadFromFile(shaderPath("generic.vert")), Shader::loadFromFile(shaderPath("solid.frag"))),
 mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 50.0)),
 logo(loadTGAFile(texturePath("logo.tga"))),
 flare(loadTGAFile(texturePath("flare.tga"))),
@@ -77,7 +77,7 @@ void PartLogo::draw() {
         logoRect.draw(shader2);
     }
     
-    glClear(GL_DEPTH_BUFFER);
+    glClear(GL_DEPTH_BUFFER_BIT);
     shaderFlare.use();
     flare.bindToUnit(0);
     mvp.reset();

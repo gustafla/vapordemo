@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vectors.hpp"
+#include "3dapp_vectors.hpp"
 #include <vector>
 
 typedef enum _SyncTrackInterpolationMode {

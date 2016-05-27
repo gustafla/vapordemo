@@ -1,13 +1,13 @@
 #include <iostream>
-#include "window.hpp"
+#include "3dapp_window.hpp"
 #include "demo_config.hpp"
 #include "demo.hpp"
-#include "vectors.hpp"
+#include "3dapp_vectors.hpp"
 #include <vector>
 #include <cstdlib>
-#include "graphics.hpp"
+#include "3dapp_graphics.hpp"
 #include "demo_consts.hpp"
-#include "define.hpp"
+#include "3dapp_consts.hpp"
 #include "music.hpp"
 
 MusicPlayer* player=NULL;

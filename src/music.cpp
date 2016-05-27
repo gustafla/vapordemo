@@ -1,5 +1,5 @@
 #include "music.hpp"
-#include "graphics.hpp"
+#include "3dapp_graphics.hpp"
 #include <cstdlib>
 #include <iostream>
 

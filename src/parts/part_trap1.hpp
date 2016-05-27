@@ -1,12 +1,12 @@
 #pragma once
 
 #include "demo.hpp"
-#include "program.hpp"
-#include "texture.hpp"
-#include "mvp.hpp"
+#include "3dapp_program.hpp"
+#include "3dapp_texture.hpp"
+#include "3dapp_mvp.hpp"
 #include "demo_part.hpp"
-#include "static_model.hpp"
-#include "lighting_state.hpp"
+#include "3dapp_static_model.hpp"
+#include "3dapp_lighting_state.hpp"
 
 class PartTrap1: public DemoPart {
     public:

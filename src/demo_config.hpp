@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config.hpp"
+#include "3dapp_config.hpp"
 
 class DemoConfig: public Config {
     public:

@@ -1,5 +1,5 @@
 #include "demo_config.hpp"
-#include "util.hpp"
+#include "3dapp_util.hpp"
 #include <cstring>
 #include <cstdlib>
 

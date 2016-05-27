@@ -1,12 +1,12 @@
 #include "part_vapor1.hpp"
-#include "tga_file.hpp"
-#include "obj_file.hpp"
-#include "paths.hpp"
-#include "gfx_utils.hpp"
-#include "uniforms.hpp"
-#include "matrices.hpp"
-#include "geo_primitives.hpp"
-#include "util.hpp"
+#include "3dapp_tga_file.hpp"
+#include "3dapp_obj_file.hpp"
+#include "3dapp_paths.hpp"
+#include "3dapp_gfx_utils.hpp"
+#include "3dapp_uniforms.hpp"
+#include "3dapp_matrices.hpp"
+#include "3dapp_geo_primitives.hpp"
+#include "3dapp_util.hpp"
 #include <cmath>
 
 #define PI2 (2*DEMO_PI)
@@ -22,13 +22,13 @@ PartVapor1::PartVapor1(float t):
 DemoPart(t),
 lights(0.2f, pointLights, sizeof(pointLights)/sizeof(pointLights[0]), directionalLights, sizeof(directionalLights)/sizeof(directionalLights[0])),
 pillarTexture(loadTGAFile(texturePath("marble.tga"))),
-shaderMvp(shaderPath("generic.vert"), shaderPath("generic.frag")), 
+shaderMvp(Shader::loadFromFile(shaderPath("generic.vert")), Shader::loadFromFile(shaderPath("generic.frag"))), 
 frac(loadTGAFile(texturePath("trianglefrac.tga"))),
 cloud(loadTGAFile(texturePath("cloud.tga"))),
 mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 10.0)) {
     genMeshes();
     
-    shader = new Program(Shader(shaderPath("generic.vert"), lights), Shader(shaderPath("generic.frag"), lights));
+    shader = new Program(Shader::loadFromFile(shaderPath("generic.vert"), lights), Shader::loadFromFile(shaderPath("generic.frag"), lights));
     shader->use();
     
     setBaseUniforms(*shader, 1, lights);

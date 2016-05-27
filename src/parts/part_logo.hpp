@@ -1,11 +1,11 @@
 #pragma once
 
 #include "demo_part.hpp"
-#include "program.hpp"
-#include "mvp.hpp"
-#include "vectors.hpp"
-#include "texture.hpp"
-#include "scaling_rectangle.hpp"
+#include "3dapp_program.hpp"
+#include "3dapp_mvp.hpp"
+#include "3dapp_vectors.hpp"
+#include "3dapp_texture.hpp"
+#include "3dapp_scaling_rectangle.hpp"
 
 #define N_LINES 110
 #define N_STARS 200

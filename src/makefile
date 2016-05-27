@@ -1,11 +1,12 @@
 # A makefile.
 
-SRCS=main.cpp demo.cpp demo_part.cpp sync_track.cpp sync.cpp parts/part_logo.cpp parts/part_vapor1.cpp parts/part_trap1.cpp music.cpp demo_config.cpp
+#SRCS=main.cpp demo.cpp demo_part.cpp sync_track.cpp sync.cpp parts/part_logo.cpp parts/part_vapor1.cpp parts/part_trap1.cpp music.cpp demo_config.cpp
+SRCS=$(wildcard *.cpp) $(wildcard */*.cpp)
 TARGET=demo
 OBJS=$(SRCS:.cpp=.o)
 CFLAGS=-O3 -MMD -MP
 debug:CFLAGS=-g -pg -MMD -MP -DDEBUG_BUILD
-INCLUDES=-I./ -I./lib3dapp/ -I./parts/
+INCLUDES=-I./ -Ilib3dapp/include/ -Iparts/
 LFLAGS=-L./lib3dapp/
 LIBS=-lGL -lSDL2 -lGLEW -l3dapp
 LIBS_CUSTOM=

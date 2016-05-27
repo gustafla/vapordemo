@@ -4,7 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include <stdint.h>
-#include "graphics.hpp"
+#include "3dapp_graphics.hpp"
 
 class MusicPlayer {
     public:
