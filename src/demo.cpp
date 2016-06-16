@@ -13,6 +13,8 @@
 #include "part_vapor1.hpp"
 #include "part_trap1.hpp"
 
+#include "draw_line.hpp"
+
 Demo* Demo::instance;
 
 Demo::Demo(Window& _window):

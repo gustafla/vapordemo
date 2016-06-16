@@ -24,7 +24,6 @@ lights(0.2f, pointLights, sizeof(pointLights)/sizeof(pointLights[0]), directiona
 pillarTexture(loadTGAFile(texturePath("marble.tga"))),
 shaderMvp(Shader::loadFromFile(shaderPath("generic.vert")), Shader::loadFromFile(shaderPath("generic.frag"))), 
 frac(loadTGAFile(texturePath("trianglefrac.tga"))),
-cloud(loadTGAFile(texturePath("cloud.tga"))),
 mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 10.0)) {
     genMeshes();
     
@@ -33,14 +32,6 @@ mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 10.0)) {
     
     setBaseUniforms(*shader, 1, lights);
     setBaseUniforms(shaderMvp);
-    
-    for (int i=0; i<NUM_CLOUDS; i++) {
-        clouds[i*STR_CLOUDS]   = randf()*3.0;
-        clouds[i*STR_CLOUDS+1] = randf()*3.0;
-        clouds[i*STR_CLOUDS+2] = randf();
-        clouds[i*STR_CLOUDS+3] = randf()*0.5+0.5;
-        clouds[i*STR_CLOUDS+4] = randf()*DEMO_PI;
-    }
 }
 
 PartVapor1::~PartVapor1() {
@@ -50,18 +41,6 @@ PartVapor1::~PartVapor1() {
 
 void PartVapor1::draw() {
     Sync& sync = Demo::singleton().getSync();
-    
-    vec4 cloudColor1 = vec4(0.6, 0.6, 0.1, 1);
-    vec4 cloudColor2 = vec4(0.0, 0.6, 0.1, 1);
-    mvp.reset();
-    cloud.bindToUnit(0);
-    for(int i=0; i<NUM_CLOUDS; i++) {
-        mvp.setModel(clouds[i*STR_CLOUDS]+sin(DEMO_T()*sin(clouds[i*STR_CLOUDS]))*0.3, clouds[i*STR_CLOUDS+1]+sin(DEMO_T()+sin(clouds[i*STR_CLOUDS]))*sin(DEMO_T()*0.2+sin(clouds[i*STR_CLOUDS+1])*2.0)*0.1, clouds[i*STR_CLOUDS+2]-4.0+sin(clouds[i*STR_CLOUDS]*2.0+DEMO_T()*0.7), 0.0, 0.0, clouds[i*STR_CLOUDS+4], 1.0);
-        mvp.apply(shaderMvp);
-        setColorUniform(shaderMvp, mix(cloudColor1, cloudColor2, clouds[i*STR_CLOUDS+3]));
-        GeoPrimitives::singleton().quad.draw(shaderMvp);
-    }
-    glClear(GL_DEPTH_BUFFER_BIT);
     
     mvp.reset();
     mvp.setView(0.0, 0.0, -4.0, 0.0, 0.0, 0.0);

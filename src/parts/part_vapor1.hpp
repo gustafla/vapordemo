@@ -8,9 +8,6 @@
 #include "3dapp_static_model.hpp"
 #include "3dapp_lighting_state.hpp"
 
-#define NUM_CLOUDS 100
-#define STR_CLOUDS 5
-
 class PartVapor1: public DemoPart {
     public:
         PartVapor1(float t);
@@ -20,8 +17,8 @@ class PartVapor1: public DemoPart {
     private:
         void genMeshes();
         void genPillarMesh();
-        StaticModel* pillar;
         
+        StaticModel* pillar;
         MVP mvp;
         Program* shader;
         Texture pillarTexture;
@@ -29,7 +26,4 @@ class PartVapor1: public DemoPart {
         
         Program shaderMvp;
 		Texture frac;
-        
-        float clouds[NUM_CLOUDS*5];
-        Texture cloud;
 };

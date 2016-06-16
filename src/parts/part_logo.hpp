@@ -8,7 +8,7 @@
 #include "3dapp_scaling_rectangle.hpp"
 
 #define N_LINES 110
-#define N_STARS 200
+#define N_STARS 40
 
 class PartLogo: public DemoPart {
     public:

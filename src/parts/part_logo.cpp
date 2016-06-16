@@ -9,6 +9,7 @@
 #include "3dapp_uniforms.hpp"
 #include "3dapp_util.hpp"
 #include <cmath>
+#include "draw_line.hpp"
 
 static const float PI2=(2.0*DEMO_PI);
 
@@ -44,18 +45,17 @@ void PartLogo::draw() {
     
     shaderStarfield.use();
     mvp.reset();
-    mvp.setViewRotation(0.0, cos(DEMO_T()*0.5)*0.4);
+    mvp.setViewRotation(0.0, cos(DEMO_T()*0.3)*0.3);
     //mvp.setViewRotation(DEMO_T(), DEMO_T()*0.2, 0.0);
     for (int i=0; i<N_STARS; i++) {
-        glClear(GL_DEPTH_BUFFER_BIT);
-        mvp.setModel(starfield[i*3], starfield[i*3+1], fmod(starfield[i*3+2]+4+DEMO_T()*2.0, 8)-8, 0, 0, 0, 0.02);
+        //glClear(GL_DEPTH_BUFFER_BIT);
+        mvp.setModel(starfield[i*3], starfield[i*3+1], std::fmod(starfield[i*3+2]+4+DEMO_T()*2.0, 15)-15, 0, 0, 0, 0.02);
         mvp.apply(shaderStarfield);
         setColorUniform(shaderStarfield, vec4(vec3(sync.getValue(SYNC_PART_LOGO_STARFIELD, DEMO_T())), 1.0));
         GeoPrimitives::singleton().quad.draw(shaderStarfield);
     }
     
     glClear(GL_DEPTH_BUFFER_BIT);
-    
     shader.use();
     mvp.setView(
         sync.getValue(SYNC_PART_LOGO_VIEW_X,  DEMO_T()),
@@ -72,7 +72,7 @@ void PartLogo::draw() {
     glClear(GL_DEPTH_BUFFER_BIT);
     shader2.use();
     logo.bindToUnit(0);
-    for (int i=12; i > 0; i--) {
+    for (int i=6; i > 0; i--) {
         logoRect.move(vec2(sync.getValue(SYNC_PART_LOGO_X, DEMO_T())+sync.getValue(SYNC_PART_LOGO_X_SEPARATION, DEMO_T())*i, 0), max(10.0-DEMO_T()*4.0-(0.3*i), 0.6));
         logoRect.draw(shader2);
     }
@@ -122,10 +122,14 @@ void PartLogo::genMeshes() {
     for (int i = 0; i < N_LINES; i++) {
         gridMesh.pushPosition(vec3(-(N_LINES/2), 0.0, (((float)i)-(N_LINES/2))));
         gridMesh.pushPosition(vec3((N_LINES/2), 0.0, (((float)i)-(N_LINES/2))));
+        //gridMesh.pushNormal(vec3(0.0));
+        //gridMesh.pushNormal(vec3(0.0));
     }
     for (int i = 0; i < N_LINES; i++) {
         gridMesh.pushPosition(vec3((((float)i)-(N_LINES/2)), 0.0, -(N_LINES/2)));
         gridMesh.pushPosition(vec3((((float)i)-(N_LINES/2)), 0.0, (N_LINES/2)));
+        //gridMesh.pushNormal(vec3(0.0));
+        //gridMesh.pushNormal(vec3(0.0));
     }
     grid = new StaticModel(gridMesh);
     
