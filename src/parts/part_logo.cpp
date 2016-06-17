@@ -49,7 +49,7 @@ void PartLogo::draw() {
     //mvp.setViewRotation(DEMO_T(), DEMO_T()*0.2, 0.0);
     for (int i=0; i<N_STARS; i++) {
         //glClear(GL_DEPTH_BUFFER_BIT);
-        mvp.setModel(starfield[i*3], starfield[i*3+1], std::fmod(starfield[i*3+2]+4+DEMO_T()*2.0, 15)-15, 0, 0, 0, 0.02);
+        mvp.setModel(starfield[i*3], starfield[i*3+1], std::fmod(starfield[i*3+2]+4+DEMO_T()*2.0, 12)-12, 0, 0, 0, 0.02);
         mvp.apply(shaderStarfield);
         setColorUniform(shaderStarfield, vec4(vec3(sync.getValue(SYNC_PART_LOGO_STARFIELD, DEMO_T())), 1.0));
         GeoPrimitives::singleton().quad.draw(shaderStarfield);
