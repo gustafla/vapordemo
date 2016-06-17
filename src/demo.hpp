@@ -30,6 +30,7 @@ class Demo: public Lib3dapp::Application {
         vec2 getInternalResolution();
         float getTime(float scale=1.0, float offset=0.0);
         void startTimer(float t=0.0f);
+        Framebuffer& getLastFBO();
         
     protected:
         std::vector<DemoPart*> parts;

@@ -48,6 +48,7 @@ fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
     parts.push_back(new PartLogo(sync.getTime(SYNC_PART, 0)));
     parts.push_back(new PartVapor1(sync.getTime(SYNC_PART, 1)));
     parts.push_back(new PartTrap1(sync.getTime(SYNC_PART, 2), (130.55f/60.0f)));
+    glClearColor(0,0,0,0);
 }
 
 Demo::~Demo() {
@@ -58,7 +59,7 @@ Demo::~Demo() {
 
 void Demo::draw() {
     fboPostAnalog.bind();
-    //glClearColor(1.0, 0.0, 0.0, 1.0);
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     float part = sync.getValue(SYNC_PART, getTime());
@@ -141,4 +142,8 @@ float Demo::getTime(float scale, float offset) {
 
 void Demo::startTimer(float t) {
 	demoStart = window.getTime()-t;
+}
+
+Framebuffer& Demo::getLastFBO() {
+    return fboPostAnalog;
 }

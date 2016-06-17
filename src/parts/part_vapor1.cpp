@@ -23,7 +23,13 @@ DemoPart(t),
 lights(0.2f, pointLights, sizeof(pointLights)/sizeof(pointLights[0]), directionalLights, sizeof(directionalLights)/sizeof(directionalLights[0])),
 pillarTexture(loadTGAFile(texturePath("marble.tga"))),
 shaderMvp(Shader::loadFromFile(shaderPath("generic.vert")), Shader::loadFromFile(shaderPath("generic.frag"))), 
-frac(loadTGAFile(texturePath("trianglefrac.tga"))),
+shaderSimple(Shader::loadFromFile(shaderPath("simple.vert")), Shader::loadFromFile(shaderPath("generic.frag"))), 
+fracTexture(loadTGAFile(texturePath("trianglefrac.tga"))),
+bgTexture(loadTGAFile(texturePath("seabg.tga"))),
+sunTexture(loadTGAFile(texturePath("sun.tga"))),
+treeTexture(loadTGAFile(texturePath("palm.tga"))),
+rectTfm(vec2(DEMO_W, DEMO_H), vec2(DEMO_W,DEMO_H), 1., vec2(-0.03,-0.02)),
+treeFBO(DEMO_W, DEMO_H),
 mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 10.0)) {
     genMeshes();
     
@@ -32,6 +38,7 @@ mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 10.0)) {
     
     setBaseUniforms(*shader, 1, lights);
     setBaseUniforms(shaderMvp);
+    setBaseUniforms(shaderSimple);
 }
 
 PartVapor1::~PartVapor1() {
@@ -42,13 +49,61 @@ PartVapor1::~PartVapor1() {
 void PartVapor1::draw() {
     Sync& sync = Demo::singleton().getSync();
     
+    //Draw BG
+    shaderSimple.use();
+    bgTexture.bindToUnit(0);
+    GeoPrimitives::singleton().quad.draw(shaderSimple);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    
+    //Draw sun
+    shaderMvp.use();
+    setColorUniform(shaderMvp, vec4(0,0,0,0));
+    mvp.reset();
+    mvp.setView(0,0,-4,0,0,0);
+    mvp.setModelTranslation(1.5,1.6,0);
+    mvp.setModelRotation(0,0,DEMO_T()*0.2);
+    mvp.apply(shaderMvp);
+    sunTexture.bindToUnit(0);
+    GeoPrimitives::singleton().quad.draw(shaderMvp);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    
+    //Draw trees
+    treeFBO.bind();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    shaderMvp.use();
+    treeTexture.bindToUnit(0);
+    mvp.reset();
+    mvp.setView(0,0,-4,0,0,0);
+    float xrange=4.0;
+    for (int i=0; i<8; i++) {
+        float x = fmod(-2+i*0.6+DEMO_T()*sync.getValue(SYNC_PART_VAPOR1_TREES_SPEED, DEMO_T()), xrange*2)-xrange;
+        mvp.setModelTranslation(x, -0.8-x*x*0.1, 0+x*x*0.2);
+        mvp.setModelRotation(0,0, sin(x*2.0)*0.1);
+        mvp.apply(shaderMvp);
+        vec3 color1 = vec3(0.8, 0.5, 0.1);
+        vec3 color2 = vec3(0.3, 0.7, 0.3);
+        setColorUniform(shaderMvp, vec4(mix(color1,color2,cos(i*DEMO_PI*0.5)*0.5+0.5),1));
+        GeoPrimitives::singleton().quad.draw(shaderMvp);
+        glClear(GL_DEPTH_BUFFER_BIT);
+    }
+    
+    //Draw trees and shadow to screen
+    Demo::singleton().getLastFBO().bind();
+    shaderSimple.use();
+    treeFBO.getTexture().bindToUnit(0);
+    setColorUniform(shaderSimple, vec4(0,0,0,1));
+    rectTfm.draw(shaderSimple);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    setColorUniform(shaderSimple, vec4(0,0,0,0));
+    GeoPrimitives::singleton().quad.draw(shaderSimple);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    
+    //Draw pillars
     mvp.reset();
     mvp.setView(0.0, 0.0, -4.0, 0.0, 0.0, 0.0);
-    
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glDepthMask(GL_TRUE);
-    
     pillarTexture.bindToUnit(0);
     shader->use();
     
@@ -63,13 +118,13 @@ void PartVapor1::draw() {
     pillar->draw(*shader);
     
     glDisable(GL_DEPTH_TEST);
-    
     glClear(GL_DEPTH_BUFFER_BIT);
     
-    vec4 ca = vec4(DEMO_C_DBLUE, 1.0);
-	vec4 cb = vec4(DEMO_C_VPINK, 1.0);
+    //Draw tunnel
+    /*vec4 ca = vec4(vec3(0,.1,.6), 1.0);
+	vec4 cb = vec4(vec3(.5,0,.2), 1.0);
     shaderMvp.use();
-    frac.bindToUnit(0);
+    fracTexture.bindToUnit(0);
     
     mvp.reset();
     float I=18;
@@ -79,7 +134,7 @@ void PartVapor1::draw() {
         mvp.apply(shaderMvp);
         setColorUniform(shaderMvp, mix(ca, cb, sin(i/(I)*3.1415*2.0)*0.5+0.5));
 		GeoPrimitives::singleton().quad.draw(shaderMvp);
-	}
+	}*/
 }
 
 float getW(float y, float r) {

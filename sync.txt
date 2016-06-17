@@ -204,3 +204,9 @@ s 30 8.9
 t s
 s 31 0
 s 35 50
+
+#27: Vapor part tree speed
+t s
+s 0 1
+s 32 1
+s 60 20

@@ -18,13 +18,6 @@
 #define DEMO_MUSIC_FILE "data/audio/music.wav"
 #define DEMO_PI 3.14159265
 
-// Palette
-#define DEMO_C_BLACK vec3(0.0,0.0,0.0)
-#define DEMO_C_WHITE vec3(1.0,1.0,1.0)
-#define DEMO_C_VPINK vec3(0.5,0.0,0.2)
-#define DEMO_C_DBLUE vec3(0.0,0.1,0.6)
-#define DEMO_C_LBLUE vec3(0.6,0.65,1.0)
-
 // Sync channel names
 #define SYNC_PART               			0
 #define SYNC_BRIGHTNESS         			1
@@ -55,3 +48,4 @@
 #define SYNC_PART_LOGO_PYRAMID_Y            24
 #define SYNC_PART_LOGO_PYRAMID_RECURSION    25
 #define SYNC_PART_LOGO_PYRAMID_EXPLOSION    26
+#define SYNC_PART_VAPOR1_TREES_SPEED        27

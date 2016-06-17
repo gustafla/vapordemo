@@ -24,7 +24,7 @@ mvp(getPProjMat(45, DEMO_W/DEMO_H, 0.1, 50.0)),
 logo(loadTGAFile(texturePath("logo.tga"))),
 flare(loadTGAFile(texturePath("flare.tga"))),
 logoRect(vec2(0), vec2(0)) {
-    setBaseUniforms(shader, 1, LightingState(), vec4(DEMO_C_DBLUE, 1.0));
+    setBaseUniforms(shader, 1, LightingState(), vec4(vec3(0,.1,.6), 1.0));
     setBaseUniforms(shaderFlare);
     setBaseUniforms(shaderPyramid);
     setBaseUniforms(shader2);
@@ -112,7 +112,7 @@ void PartLogo::draw() {
             1.0-(i/10.0)+sync.getValue(SYNC_PART_LOGO_PYRAMID_EXPLOSION, DEMO_T())*(i+1.0)
         );
         mvp.apply(shaderPyramid);
-        setColorUniform(shaderPyramid, vec4(mix(vec3(0.4), DEMO_C_VPINK, i/nPyramids), 1.0));
+        setColorUniform(shaderPyramid, vec4(mix(vec3(0.4), vec3(.5,0,.2), i/nPyramids), 1.0));
         pyramid->draw(shaderPyramid, GL_LINES);
     }
 }
