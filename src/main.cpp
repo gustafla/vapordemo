@@ -27,7 +27,7 @@ void musicCallbackWrapper(void* ud, uint8_t* st, int l) {
 
 int main(int argc, char* argv[]) {
     initializeGraphics();
-    srand(42);
+    srand(69);
     
     DemoConfig conf(argc, argv);
     if (!conf.fullscreen) {

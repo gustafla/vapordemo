@@ -48,11 +48,10 @@ s 33 0.2
 
 # 5: Tri part View X
 t s
-s 8 -12
-s 10 0.1
-s 11 -0.4
-s 12 0
-s 14 0
+s 20 -12
+s 24 0.1
+s 25 -0.4
+s 26 0
 
 # 6: Tri part View Y
 t s
@@ -69,24 +68,23 @@ s 10 0.2
 
 # 8: Tri part Tunnel depth
 t s
-s 4 0
-s 6 4
-s 8 -1
-s 10 0
-s 25 -1
-s 120 3000
+s 24 0
+s 32 6
+s 110 3000
 
 # 9: Tri part Tunnel depth panning
+# NOT USED
 t s
 s 7 0
 s 15 -4
 s 20 4
 s 22 5
 s 25 0
+# ^NOT USED
 
 # 10: Tri part Tunnel depth rotation
 t s
-s 31 0
+s 32 0
 s 38 10
 
 # 11: Logo part view x
@@ -205,7 +203,7 @@ t s
 s 31 0
 s 35 50
 
-#27: Vapor part tree speed
+#27: Vapor part speed
 t s
 s 0 1
 s 32 1
