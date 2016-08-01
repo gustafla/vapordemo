@@ -35,6 +35,7 @@ class PartVapor1: public DemoPart {
         //Background
         Program shaderSimple;
         Texture bgTexture;
+        Program shaderWave;
         
         //Sun
         Texture sunTexture;
