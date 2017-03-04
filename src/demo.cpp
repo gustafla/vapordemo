@@ -31,9 +31,7 @@ fboPostAnalog(DEMO_W, DEMO_H),
 fboPostBlur(DEMO_W/2, DEMO_H/2),
 fboMain(DEMO_W*DEMO_POST_SIZE_MULT, DEMO_H*DEMO_POST_SIZE_MULT) {
     glEnable(GL_BLEND);
-    check();
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    check();
     //glEnable(GL_CULL_FACE);
     
     fboPostBlur.getTexture().setFilter(GL_LINEAR);
@@ -59,6 +57,7 @@ Demo::~Demo() {
 
 void Demo::draw() {
     fboPostAnalog.bind();
+    //fboPostBlur.bind();
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -74,10 +73,11 @@ void Demo::draw() {
     fboPostAnalog.getTexture().bindToUnit(0);
     GeoPrimitives::singleton().quad.draw(shaderPostBlur);
     
-    //Analog postproc to scaling buffer
+    //Analog postproc to scaling buffer*/
     fboMain.bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderPostAnalog.use();
+    //shaderPostBlur.use();
     setTimeUniform(shaderPostAnalog, getTime());
     glUniform1f(shaderPostAnalog.getUfmHandle("brightness"), sync.getValue(SYNC_BRIGHTNESS, getTime()));
     glUniform1f(shaderPostAnalog.getUfmHandle("contrast"), sync.getValue(SYNC_CONTRAST, getTime()));
@@ -85,7 +85,9 @@ void Demo::draw() {
     glUniform1f(shaderPostAnalog.getUfmHandle("glitchiness"), sync.getValue(SYNC_GLITCHINESS, getTime()));
     fboPostAnalog.getTexture().bindToUnit(0);
     fboPostBlur.getTexture().bindToUnit(1);
+    //fboPostBlur.getTexture().bindToUnit(0);
     GeoPrimitives::singleton().quad.draw(shaderPostAnalog);
+    //GeoPrimitives::singleton().quad.draw(shaderPostBlur);
     
     //Scaling buffer to window
     window.bindFramebuffer();
@@ -110,7 +112,7 @@ void Demo::createSingleton(Window& _window) {
         std::cout << "Cannot abandon initialized Demo instance.\n";
 }
 
-void Demo::destroySingleton() {
+void Demo::deleteSingleton() {
     if (instance)
         delete instance;
     else
@@ -118,10 +120,11 @@ void Demo::destroySingleton() {
 }
 
 Demo& Demo::singleton() {
-    if (instance)
-        return *instance;
-    else
-        std::cout << "Cannot give uninitialized Demo instance.\n";
+    if (!instance) {
+        std::cout << "Cannot get uninitialized Demo instance.\n";
+        exit(ERR_WTF);
+    }
+    return *instance;
 }
 
 float Demo::getInternalAspectRatio() {

@@ -21,7 +21,7 @@ class Demo: public Lib3dapp::Application {
         virtual void draw();
         
         static void createSingleton(Window& _window);
-        static void destroySingleton();
+        static void deleteSingleton();
         static Demo& singleton();
         
         Window& getWindow();

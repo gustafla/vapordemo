@@ -14,7 +14,7 @@ MusicPlayer* player=NULL;
 
 void cleanup() {
     Demo::singleton().getWindow().close();
-    Demo::destroySingleton();
+    Demo::deleteSingleton();
     if (player)
         delete player;
     cleanupGraphics();

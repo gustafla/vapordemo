@@ -6,7 +6,7 @@ demo
 gmon.out
 
 # Data
-data/
+#data/
 
 # Build intermediate files
 *.o
@@ -16,7 +16,7 @@ data/
 log*
 
 #big files
-*.wav
+#*.wav
 
 #library
 src/lib3dapp
